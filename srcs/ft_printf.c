@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:30:51 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/11 16:40:58 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/11 22:55:01 by victor        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -15,69 +15,66 @@
 #include <stdlib.h>
 #include <stdio.h>
 
-t_data		*ft_checkconv(const char *input)
-{
-	t_data	*data;
+/*
+**	the default converter values
+*/
 
-	data = (t_data*)malloc(sizeof(t_data));
-	if (ft_strncmp(input, "%", 1))
+void	ft_init_conv_vars(t_conv *conv)
+{
+	conv->specifier = 0;
+	conv->width = 0;
+	conv->precision = 6;
+	conv->leftj = 0;
+	conv->padzero = 0;
+	conv->sign = 0;
+}
+
+void	ft_set_conv_vars(const char **input, t_conv *conv)
+{
+	char	*specifiers;
+
+	*input += 1;
+	specifiers = "cspdiuxX%";
+	while (**input)
 	{
-		input++;
-		if (ft_strncmp(input, "-", 1))
-			data->flags = 1;
-		if (ft_strncmp(input, "0", 1))
-			data->flags = 2;
-		if (ft_strncmp(input, ".", 1))
-			data->flags = 3;
-		if (ft_strncmp(input, "*", 1))
-			data->flags = 4;
-		if (ft_strncmp(input, "c", 1))
-			data->converter = 1;
-		if (ft_strncmp(input, "s", 1))
-			data->converter = 2;
-		if (ft_strncmp(input, "p", 1))
-			data->converter = 3;
-		if (ft_strncmp(input, "d", 1))
-			data->converter = 4;
-		if (ft_strncmp(input, "i", 1))
-			data->converter = 5;
-		if (ft_strncmp(input, "u", 1))
-			data->converter = 6;
-		if (ft_strncmp(input, "x", 1))
-			data->converter = 7;
-		if (ft_strncmp(input, "X", 1))
-			data->converter = 8;
-		if (ft_strncmp(input, "%", 1))
-			data->converter = 9;
-		printf("%i", data->converter);
+		while (*specifiers)
+		{
+			if (**input == *specifiers)
+			{
+				conv->specifier = *specifiers;
+				printf("%c", conv->specifier);
+				return ;
+			}
+			specifiers++;
+		}
+		*input += 1;
 	}
-	return (data);
 }
 
 int		ft_printf(const char *input, ...)
 {
-	t_data *conv_flag;
-	int		test;
+	t_conv	conv;
+	int		input_len;
 
-	test = 27;
+	input_len = 0;
 	while (*input)
 	{
-		if (ft_strncmp(input, "%", 1))
+		if (*input == '%')
 		{
-			conv_flag = ft_checkconv(input);
-			if (conv_flag->converter == 5)
-				ft_putstr_fd(ft_itoa(test), 1);
+			ft_init_conv_vars(&conv);
+			ft_set_conv_vars(&input, &conv);
 		}
 		else
-			ft_putchar_fd((char)input, 1);
-		input++;
+		{
+			//ft_putchar_fd(*input, 1);
+			input_len++;
+		}
 	}
-	return (ft_strlen(input));
+	return (input_len);
 }
 
 int		main(void)
 {
-	ft_printf("%i");
-	ft_putchar_fd('\n', 1);
-	return (0);
+	ft_printf("%x");
+	return (1);
 }
