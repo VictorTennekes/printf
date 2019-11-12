@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/12 12:16:44 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/12 16:49:33 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/12 22:50:19 by victor        ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -58,6 +58,8 @@ void	ft_set_conv_vars(const char **input, t_conv *conv)
 {
 	char *type;
 
+	if (ft_checkexist(input, conv))
+		return ;
 	*input += 1;
 	while (**input)
 	{
@@ -72,6 +74,8 @@ void	ft_set_conv_vars(const char **input, t_conv *conv)
 			type++;
 		}
 		ft_check_flags(input, conv);
+		if (ft_checkexist(input, conv))
+		return ;
 		*input += 1;
 	}
 }
@@ -85,8 +89,8 @@ void	ft_call_convert(t_conv *conv, va_list a_list, int *input_len)
 	types = "cspdiUxXnfge%";
 	funcs[0] = &ft_print_char;
 	funcs[1] = &ft_print_str;
-	// funcs[2] = ;
-	// funcs[3] = ;
+	funcs[2] = &ft_print_adress;
+	funcs[3] = &ft_print_double;
 	// funcs[4] = ;
 	// funcs[5] = ;
 	// funcs[6] = ;
