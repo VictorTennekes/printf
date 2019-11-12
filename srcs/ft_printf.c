@@ -5,79 +5,133 @@
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/11 14:30:51 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/11 16:40:58 by vtenneke      ########   odam.nl         */
+/*   Created: 2019/11/12 12:16:44 by vtenneke       #+#    #+#                */
+/*   Updated: 2019/11/12 16:49:33 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 #include <libft.h>
-#include <stdlib.h>
 #include <stdio.h>
 
-t_data		*ft_checkconv(const char *input)
+void	ft_init_conv_vars(t_conv *conv)
 {
-	t_data	*data;
+	conv->type = 0;
+	conv->width = 0;
+	conv->precision = -2;
+	conv->leftj = 0;
+	conv->padzero = 0;
+	conv->sign = 0;
+	conv->various = 0;
+}
 
-	data = (t_data*)malloc(sizeof(t_data));
-	if (ft_strncmp(input, "%", 1))
+void	ft_check_flags(const char **input, t_conv *conv)
+{
+	if (**input == '-')
+		conv->leftj = 1;
+	else if (**input == '0')
+		conv->padzero = 1;
+	else if (**input == '+' || **input == ' ')
+		conv->sign = **input;
+	else if (**input == '#')
+		conv->various = 1;
+	else if (**input == '*')
+		conv->width = -1;
+	else if (ft_isdigit(**input))
+		conv->width = ft_atoi(*input);
+	else if (**input == '.')
 	{
-		input++;
-		if (ft_strncmp(input, "-", 1))
-			data->flags = 1;
-		if (ft_strncmp(input, "0", 1))
-			data->flags = 2;
-		if (ft_strncmp(input, ".", 1))
-			data->flags = 3;
-		if (ft_strncmp(input, "*", 1))
-			data->flags = 4;
-		if (ft_strncmp(input, "c", 1))
-			data->converter = 1;
-		if (ft_strncmp(input, "s", 1))
-			data->converter = 2;
-		if (ft_strncmp(input, "p", 1))
-			data->converter = 3;
-		if (ft_strncmp(input, "d", 1))
-			data->converter = 4;
-		if (ft_strncmp(input, "i", 1))
-			data->converter = 5;
-		if (ft_strncmp(input, "u", 1))
-			data->converter = 6;
-		if (ft_strncmp(input, "x", 1))
-			data->converter = 7;
-		if (ft_strncmp(input, "X", 1))
-			data->converter = 8;
-		if (ft_strncmp(input, "%", 1))
-			data->converter = 9;
-		printf("%i", data->converter);
+		if (**input + 1 == '*')
+			conv->precision = -1;
+		else if (ft_isdigit(*(*input + 1)))
+			conv->precision = ft_atoi(*input + 1);
+		else
+			conv->precision = 0;
+		*input += 1;
 	}
-	return (data);
+	if (conv->precision != -2 || conv->width != 0)
+		while (ft_isdigit(*(*input)) && ft_isdigit(*(*input + 1)))
+			*input += 1;
+}
+
+void	ft_set_conv_vars(const char **input, t_conv *conv)
+{
+	char *type;
+
+	*input += 1;
+	while (**input)
+	{
+		type = "cspdiuxX%";
+		while (*type)
+		{
+			if (**input == *type)
+			{
+				conv->type = *type;
+				return ;
+			}
+			type++;
+		}
+		ft_check_flags(input, conv);
+		*input += 1;
+	}
+}
+
+void	ft_call_convert(t_conv *conv, va_list a_list, int *input_len)
+{
+	char	*types;
+	t_cfunc	funcs[13];
+	int		i;
+
+	types = "cspdiUxXnfge%";
+	funcs[0] = &ft_print_char;
+	funcs[1] = &ft_print_str;
+	// funcs[2] = ;
+	// funcs[3] = ;
+	// funcs[4] = ;
+	// funcs[5] = ;
+	// funcs[6] = ;
+	// funcs[7] = ;
+	// funcs[8] = ;
+	// funcs[9] = ;
+	// funcs[10] = ;
+	// funcs[11] = ;
+	// funcs[12] = ;
+	i = 0;
+	while (types[i])
+	{
+		if (types[i] == conv->type)
+			funcs[i](conv, a_list, input_len);
+		i++;
+	}
 }
 
 int		ft_printf(const char *input, ...)
 {
-	t_data *conv_flag;
-	int		test;
+	t_conv	conv;
+	va_list a_list;
+	int		input_len;
 
-	test = 27;
+	va_start(a_list, input);
+	input_len = 0;
 	while (*input)
 	{
-		if (ft_strncmp(input, "%", 1))
+		if (*input != '%')
 		{
-			conv_flag = ft_checkconv(input);
-			if (conv_flag->converter == 5)
-				ft_putstr_fd(ft_itoa(test), 1);
+			ft_putchar_fd(*input, 1);
+			input_len++;
 		}
 		else
-			ft_putchar_fd((char)input, 1);
+		{
+			ft_init_conv_vars(&conv);
+			ft_set_conv_vars(&input, &conv);
+			if (conv.width == -1)
+				conv.width = va_arg(a_list, int);
+			if (conv.precision == -1)
+				conv.precision = va_arg(a_list, int);
+			ft_call_convert(&conv, a_list, &input_len);
+		}
 		input++;
 	}
-	return (ft_strlen(input));
-}
-
-int		main(void)
-{
-	ft_printf("%i");
-	ft_putchar_fd('\n', 1);
-	return (0);
+	va_end(a_list);
+	return (input_len);
 }

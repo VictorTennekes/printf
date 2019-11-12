@@ -6,13 +6,14 @@
 #    By: vtenneke <vtenneke@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/11 14:16:29 by vtenneke       #+#    #+#                 #
-#    Updated: 2019/11/11 16:15:49 by vtenneke      ########   odam.nl          #
+#    Updated: 2019/11/12 17:21:10 by vtenneke      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
-NAME		=	ft_printf.a
-SRCS		=	ft_printf
-LIBSRCS		=	ft_putchar_fd ft_itoa
+NAME		=	libftprintf.a
+SRCS		=	ft_printf ft_printers ft_functions
+LIBSRCS		=	ft_putchar_fd ft_atoi ft_strlcpy ft_isdigit ft_itoa ft_putstr_fd\
+				ft_strlen ft_isascii
 CFILES		=	$(SRCS:%=srcs/%.c)
 LIBCFILES	=	$(LIBSRCS:%=libft/%.c)
 OFILES		=	$(CFILES:.c=.o)
