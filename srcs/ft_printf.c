@@ -5,8 +5,8 @@
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/12 12:16:44 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/12 22:50:19 by victor        ########   odam.nl         */
+/*   Created: 2019/11/13 14:42:07 by vtenneke       #+#    #+#                */
+/*   Updated: 2019/11/13 15:54:33 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,45 +25,14 @@ void	ft_init_conv_vars(t_conv *conv)
 	conv->various = 0;
 }
 
-void	ft_check_flags(const char **input, t_conv *conv)
-{
-	if (**input == '-')
-		conv->leftj = 1;
-	else if (**input == '0')
-		conv->padzero = 1;
-	else if (**input == '+' || **input == ' ')
-		conv->sign = **input;
-	else if (**input == '#')
-		conv->various = 1;
-	else if (**input == '*')
-		conv->width = -1;
-	else if (ft_isdigit(**input))
-		conv->width = ft_atoi(*input);
-	else if (**input == '.')
-	{
-		if (**input + 1 == '*')
-			conv->precision = -1;
-		else if (ft_isdigit(*(*input + 1)))
-			conv->precision = ft_atoi(*input + 1);
-		else
-			conv->precision = 0;
-		*input += 1;
-	}
-	if (conv->precision != -2 || conv->width != 0)
-		while (ft_isdigit(*(*input)) && ft_isdigit(*(*input + 1)))
-			*input += 1;
-}
-
 void	ft_set_conv_vars(const char **input, t_conv *conv)
 {
 	char *type;
 
-	if (ft_checkexist(input, conv))
-		return ;
 	*input += 1;
 	while (**input)
 	{
-		type = "cspdiuxX%";
+		type = "cspdiuxXnfge%";
 		while (*type)
 		{
 			if (**input == *type)
@@ -73,24 +42,48 @@ void	ft_set_conv_vars(const char **input, t_conv *conv)
 			}
 			type++;
 		}
-		ft_check_flags(input, conv);
-		if (ft_checkexist(input, conv))
-		return ;
+		ft_set_flags(input, conv);
 		*input += 1;
 	}
+}
+
+void	ft_set_flags(const char **input, t_conv *conv)
+{
+	if (**input == '-')
+		conv->leftj = 1;
+	else if (**input == '0')
+		conv->padzero = 1;
+	else if (**input == '+' || **input == ' ')
+		conv->sign = **input;
+	else if (**input == '*')
+		conv->width = -1;
+	else if (ft_isdigit(**input))
+		conv->width = ft_atoi(*input);
+	else if (**input == '.' && *(*input + 1) == '*')
+		conv->precision = -1;
+	else if (**input == '.' && ft_isdigit(*(*input + 1)))
+		conv->precision = ft_atoi(*input + 1);
+	else if (**input == '.')
+		conv->precision = 0;
+	if ((**input == '.' && *(*input + 1) == '*') ||
+		(**input == '.' && ft_isdigit(*(*input + 1))))
+		*input += 1;
+	if (conv->precision != -2 || conv->width != 0)
+		while (ft_isdigit(*(*input)) && ft_isdigit(*(*input + 1)))
+			*input += 1;
 }
 
 void	ft_call_convert(t_conv *conv, va_list a_list, int *input_len)
 {
 	char	*types;
-	t_cfunc	funcs[13];
+	t_cfunc	functions[13];
 	int		i;
 
 	types = "cspdiUxXnfge%";
-	funcs[0] = &ft_print_char;
-	funcs[1] = &ft_print_str;
-	funcs[2] = &ft_print_adress;
-	funcs[3] = &ft_print_double;
+	functions[0] = &ft_print_char;
+	functions[1] = &ft_print_str;
+	// funcs[2] = &ft_print_address;
+	// funcs[3] = &ft_print_int;
 	// funcs[4] = ;
 	// funcs[5] = ;
 	// funcs[6] = ;
@@ -104,15 +97,15 @@ void	ft_call_convert(t_conv *conv, va_list a_list, int *input_len)
 	while (types[i])
 	{
 		if (types[i] == conv->type)
-			funcs[i](conv, a_list, input_len);
+			functions[i](conv, a_list, input_len);
 		i++;
 	}
 }
 
-int		ft_printf(const char *input, ...)
+int				ft_printf(const char *input, ...)
 {
-	t_conv	conv;
 	va_list a_list;
+	t_conv	conv;
 	int		input_len;
 
 	va_start(a_list, input);
