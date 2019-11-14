@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/12 17:20:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/13 15:24:19 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/14 14:56:16 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -14,6 +14,7 @@
 #include <libft.h>
 #include <stdarg.h>
 #include <unistd.h>
+#include <stdio.h>
 
 void	ft_putchar_count_fd(char c, int fd, int *input_len)
 {
@@ -42,38 +43,55 @@ void	ft_putnstr_count_fd(char *str, int fd, int n, int *input_len)
 	}
 }
 
-// int		ft_nbr_size(int i, t_conv *conv)
-// {
-// 	int	tmp;
-// 	int	size;
+void	ft_prep_int(t_conv *conv, int i)
+{
+	if (i < 0)
+	{
+		conv->hassign = 1;
+		conv->sign = '-';
+	}
+	conv->size = ft_putint_size(i, conv);
+	if (conv->precision != -2)
+		conv->padzero = 0;
+	if (conv->precision == -2 ||
+		(conv->precision < conv->size && conv->precision != 0))
+		conv->precision = conv->size;
+}
 
-// 	tmp = i;
-// 	size = 0;
-// 	if (i < 0 || conv->sign)
-// 		size++;
-// 	if (i == 0)
-// 		size++;
-// 	while (tmp)
-// 	{
-// 		tmp /= 10;
-// 		size++;
-// 	}
-// 	return (size);
-// }
+int		ft_putint_size(int i, t_conv *conv)
+{
+	int		tmp;
+	int		size;
 
-// void		ft_putnbr_count_fd(int n, int fd, int *input_len)
-// {
-// 	unsigned int		res;
+	tmp = i;
+	size = 0;
+	if (i == 0)
+		size++;
+	while (tmp)
+	{
+		tmp = tmp / 10;
+		size++;
+	}
+	return (size);
+}
 
-// 	res = 0;
-// 	if (n < 0)
-// 	{
-// 		ft_putchar_count_fd('-', fd, input_len);
-// 		res = (unsigned int)(n * -1);
-// 	}
-// 	else
-// 		res = (unsigned int)n;
-// 	if (res >= 10)
-// 		ft_putnbr_fd(res / 10, fd);
-// 	ft_putchar_count_fd((char)(res % 10 + '0'), fd, input_len);
-// }
+void	ft_putint_n_fd(int i, int *input_len)
+{
+	int		tmp;
+	int		pow;
+
+	tmp = i;
+	pow = 1;
+	while (tmp / 10)
+	{
+		tmp = tmp / 10;
+		pow = pow * 10;
+	}
+	while (pow)
+	{
+		ft_putchar_count_fd(((i < 0) ? '0' - i / pow :
+							'0' + i / pow), 1, input_len);
+		i = i % pow;
+		pow = pow / 10;
+	}
+}

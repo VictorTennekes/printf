@@ -6,12 +6,13 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/12 15:10:46 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/13 15:25:36 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/14 15:49:51 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 #include <libft.h>
+#include <stdio.h>
 
 void	ft_print_char(t_conv *conv, va_list a_list, int *input_len)
 {
@@ -45,23 +46,57 @@ void	ft_print_str(t_conv *conv, va_list a_list, int *input_len)
 		ft_putnstr_count_fd(str, 1, conv->precision, input_len);
 }
 
-// void	ft_print_address(t_conv *conv, va_list a_list, int *input_len)
-// {
-// 	// void			*output;
-// 	// unsigned long	address;
+void	ft_print_address(t_conv *conv, va_list a_list, int *input_len)
+{
+	ft_putstr_fd("ADDRESS", 1);
+}
 
-// 	// output = va_args(a_list, void*);
-// 	// address = (unsigned long)(output);
-// 	// ft_putstr_count_fd("0x", 1, 2, input_len);
-// 	//THIS DEFINITELY DOES STUFF
-// }
+void	ft_print_percent(t_conv *conv, va_list a_list, int *input_len)
+{
+	if (conv->precision == -2)
+		conv->precision = 1;
+	if (conv->leftj)
+	{
+		*input_len += 1;
+		ft_putchar_fd('%', 1);
+	}
+	if (conv->padzero && !conv->leftj)
+		ft_padzero(conv->width, conv->precision, '0', input_len);
+	else
+		ft_padzero(conv->width, conv->precision, ' ', input_len);
+	if (!conv->leftj)
+	{
+		*input_len += 1;
+		ft_putchar_fd('%', 1);
+	}
+}
 
-// void	ft_print_int(t_conv *conv, va_list a_list, int *input_len)
-// {
-// 	int	num;
-// 	int	numlen;
+void	ft_print_int(t_conv *conv, va_list a_list, int *input_len)
+{
+	int		i;
 
-// 	num = va_arg(a_list, int);
-// 	numlen = ft_nbr_size(num, conv);
-// 	ft_putnbr_count_fd(num, 1, input_len);
-// }
+	i = va_arg(a_list, int);
+	ft_prep_int(conv, i);
+	if ((conv->padzero || conv->leftj) && conv->hassign)
+		ft_putchar_count_fd(conv->sign, 1, input_len);
+	if (conv->leftj)
+	{
+		ft_padzero(conv->precision, conv->size, '0', input_len);
+		if (conv->precision)
+			ft_putint_n_fd(i, input_len);
+	}
+	if (conv->padzero && !conv->leftj)
+		ft_padzero(conv->width, conv->precision + conv->hassign,
+					'0', input_len);
+	else
+		ft_padzero(conv->width, conv->precision + conv->hassign,
+					' ', input_len);
+	if (!conv->leftj)
+	{
+		if (conv->hassign && !conv->padzero)
+			ft_putchar_count_fd(conv->sign, 1, input_len);
+		ft_padzero(conv->precision, conv->size, '0', input_len);
+		if (conv->precision)
+			ft_putint_n_fd(i, input_len);
+	}
+}

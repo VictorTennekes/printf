@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 14:42:07 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/13 15:54:33 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/14 15:50:00 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,7 @@ void	ft_init_conv_vars(t_conv *conv)
 	conv->padzero = 0;
 	conv->sign = 0;
 	conv->various = 0;
+	conv->size = 0;
 }
 
 void	ft_set_conv_vars(const char **input, t_conv *conv)
@@ -54,7 +55,10 @@ void	ft_set_flags(const char **input, t_conv *conv)
 	else if (**input == '0')
 		conv->padzero = 1;
 	else if (**input == '+' || **input == ' ')
+	{
 		conv->sign = **input;
+		conv->hassign = 1;
+	}
 	else if (**input == '*')
 		conv->width = -1;
 	else if (ft_isdigit(**input))
@@ -82,17 +86,17 @@ void	ft_call_convert(t_conv *conv, va_list a_list, int *input_len)
 	types = "cspdiUxXnfge%";
 	functions[0] = &ft_print_char;
 	functions[1] = &ft_print_str;
-	// funcs[2] = &ft_print_address;
-	// funcs[3] = &ft_print_int;
-	// funcs[4] = ;
-	// funcs[5] = ;
-	// funcs[6] = ;
-	// funcs[7] = ;
-	// funcs[8] = ;
-	// funcs[9] = ;
-	// funcs[10] = ;
-	// funcs[11] = ;
-	// funcs[12] = ;
+	functions[2] = &ft_print_address;
+	functions[3] = &ft_print_int;
+	functions[4] = &ft_print_int;
+	// functions[5] = ;
+	// functions[6] = ;
+	// functions[7] = ;
+	// functions[8] = ;
+	// functions[9] = ;
+	// functions[10] = ;
+	// functions[11] = ;
+	// functions[12] = ;
 	i = 0;
 	while (types[i])
 	{

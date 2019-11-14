@@ -6,7 +6,7 @@
 #    By: vtenneke <vtenneke@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/11 14:16:29 by vtenneke       #+#    #+#                 #
-#    Updated: 2019/11/13 15:23:57 by vtenneke      ########   odam.nl          #
+#    Updated: 2019/11/14 14:43:15 by vtenneke      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -18,7 +18,7 @@ LIBCFILES	=	$(LIBSRCS:%=libft/%.c)
 OFILES		=	$(CFILES:.c=.o)
 LIBOFILES	=	$(LIBCFILES:.c=.o)
 INCLUDES	=	./includes
-FLAGS		=	-Wall -Werror -Wextra
+FLAGS		=	-Wall -Werror -Wextra -Wno-unused-parameter
 
 # COLORS
 WHITE	= \x1b[37;01m

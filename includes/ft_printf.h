@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:15:40 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/13 15:16:26 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/14 15:50:28 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -23,6 +23,8 @@ typedef struct	s_conv
 	int			padzero;
 	int			various;
 	char		sign;
+	int			hassign;
+	int			size;
 }				t_conv;
 
 /*
@@ -53,7 +55,9 @@ void			ft_putchar_count_fd(char c, int fd, int *input_len);
 int				ft_checkexist(const char **input, t_conv *conv);
 void			ft_padzero(int width, int precision, int pad, int *input_len);
 void			ft_putnstr_count_fd(char *str, int fd, int n, int *input_len);
-// int				ft_nbr_size(int i, t_conv *conv);
-// void			ft_putnbr_count_fd(int n, int fd, int *input_len);
+
+void			ft_prep_int(t_conv *conv, int i);
+int				ft_putint_size(int i, t_conv *conv);
+void			ft_putint_n_fd(int i, int *nprint);
 
 #endif
