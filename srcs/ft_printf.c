@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 14:42:07 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/14 15:50:00 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/15 15:59:29 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -50,7 +50,9 @@ void	ft_set_conv_vars(const char **input, t_conv *conv)
 
 void	ft_set_flags(const char **input, t_conv *conv)
 {
-	if (**input == '-')
+	if (**input == '#')
+		conv->various = 1;
+	else if (**input == '-')
 		conv->leftj = 1;
 	else if (**input == '0')
 		conv->padzero = 1;
@@ -77,21 +79,21 @@ void	ft_set_flags(const char **input, t_conv *conv)
 			*input += 1;
 }
 
-void	ft_call_convert(t_conv *conv, va_list a_list, int *input_len)
+void	ft_call_convert(t_conv *conv, va_list a_list, int *in_len)
 {
 	char	*types;
 	t_cfunc	functions[13];
 	int		i;
 
-	types = "cspdiUxXnfge%";
+	types = "cspdiuxXnfge%";
 	functions[0] = &ft_print_char;
 	functions[1] = &ft_print_str;
 	functions[2] = &ft_print_address;
 	functions[3] = &ft_print_int;
 	functions[4] = &ft_print_int;
-	// functions[5] = ;
-	// functions[6] = ;
-	// functions[7] = ;
+	functions[5] = &ft_print_un_int;
+	functions[6] = &ft_print_lower_hex;
+	functions[7] = &ft_print_upper_hex;
 	// functions[8] = ;
 	// functions[9] = ;
 	// functions[10] = ;
@@ -101,7 +103,7 @@ void	ft_call_convert(t_conv *conv, va_list a_list, int *input_len)
 	while (types[i])
 	{
 		if (types[i] == conv->type)
-			functions[i](conv, a_list, input_len);
+			functions[i](conv, a_list, in_len);
 		i++;
 	}
 }
@@ -110,16 +112,16 @@ int				ft_printf(const char *input, ...)
 {
 	va_list a_list;
 	t_conv	conv;
-	int		input_len;
+	int		in_len;
 
 	va_start(a_list, input);
-	input_len = 0;
+	in_len = 0;
 	while (*input)
 	{
 		if (*input != '%')
 		{
 			ft_putchar_fd(*input, 1);
-			input_len++;
+			in_len++;
 		}
 		else
 		{
@@ -129,10 +131,10 @@ int				ft_printf(const char *input, ...)
 				conv.width = va_arg(a_list, int);
 			if (conv.precision == -1)
 				conv.precision = va_arg(a_list, int);
-			ft_call_convert(&conv, a_list, &input_len);
+			ft_call_convert(&conv, a_list, &in_len);
 		}
 		input++;
 	}
 	va_end(a_list);
-	return (input_len);
+	return (in_len);
 }

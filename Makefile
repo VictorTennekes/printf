@@ -6,12 +6,12 @@
 #    By: vtenneke <vtenneke@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/11 14:16:29 by vtenneke       #+#    #+#                 #
-#    Updated: 2019/11/14 14:43:15 by vtenneke      ########   odam.nl          #
+#    Updated: 2019/11/15 12:46:25 by vtenneke      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libftprintf.a
-SRCS		=	ft_printf ft_converters ft_utilities
+SRCS		=	ft_printf ft_converters_cti ft_converters_u ft_utilities
 LIBSRCS		=	ft_putchar_fd
 CFILES		=	$(SRCS:%=srcs/%.c)
 LIBCFILES	=	$(LIBSRCS:%=libft/%.c)
