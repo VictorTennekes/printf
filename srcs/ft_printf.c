@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 14:42:07 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/15 15:59:29 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/18 15:14:00 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,9 +24,11 @@ void	ft_init_conv_vars(t_conv *conv)
 	conv->sign = 0;
 	conv->various = 0;
 	conv->size = 0;
+	conv->hassign = 0;
+	conv->sizemod = 0;
 }
 
-void	ft_set_conv_vars(const char **input, t_conv *conv)
+void	ft_set_conv_vars(t_conv *conv, const char **input)
 {
 	char *type;
 
@@ -43,12 +45,30 @@ void	ft_set_conv_vars(const char **input, t_conv *conv)
 			}
 			type++;
 		}
-		ft_set_flags(input, conv);
+		ft_set_flags(conv, input);
 		*input += 1;
 	}
 }
 
-void	ft_set_flags(const char **input, t_conv *conv)
+void			ft_size_check(t_conv *conv, const char **input)
+{
+	if (*(*input + 1) == 'l' && **input == 'l')
+	{
+		conv->sizemod = 1;
+		*input += 1;
+	}
+	else if (*(*input + 1) != 'l' && **input == 'l')
+		conv->sizemod = 2;
+	else if (*(*input + 1) != 'h' && **input == 'h')
+		conv->sizemod = 3;
+	else if (*(*input + 1) == 'h' && **input == 'h')
+	{
+		conv->sizemod = 4;
+		*input += 1;
+	}
+}
+
+void	ft_set_flags(t_conv *conv, const char **input)
 {
 	if (**input == '#')
 		conv->various = 1;
@@ -77,6 +97,7 @@ void	ft_set_flags(const char **input, t_conv *conv)
 	if (conv->precision != -2 || conv->width != 0)
 		while (ft_isdigit(*(*input)) && ft_isdigit(*(*input + 1)))
 			*input += 1;
+	ft_size_check(conv, input);
 }
 
 void	ft_call_convert(t_conv *conv, va_list a_list, int *in_len)
@@ -98,7 +119,7 @@ void	ft_call_convert(t_conv *conv, va_list a_list, int *in_len)
 	// functions[9] = ;
 	// functions[10] = ;
 	// functions[11] = ;
-	// functions[12] = ;
+	functions[12] = &ft_print_percent;
 	i = 0;
 	while (types[i])
 	{
@@ -126,7 +147,7 @@ int				ft_printf(const char *input, ...)
 		else
 		{
 			ft_init_conv_vars(&conv);
-			ft_set_conv_vars(&input, &conv);
+			ft_set_conv_vars(&conv, &input);
 			if (conv.width == -1)
 				conv.width = va_arg(a_list, int);
 			if (conv.precision == -1)

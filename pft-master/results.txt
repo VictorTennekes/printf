@@ -1,182 +1,77 @@
-Test 1065 (X_size_l_pos_ref) : FAILED.
-    First line of code: {return test("%lX", ul_pos_1);}
-      expected output : "1450C9174865"
-      your output     : "C9174865"
-      expected (nonprintable as hex) : "1450C9174865"
-      actual   (nonprintable as hex) : "C9174865"
+Test 1285 (p_ftfc_literal_9w_prec2_undefbehav) : FAILED.
+    First line of code: {return test("%9.2p
+", 1234);}
+      expected output : "    0x4d2
+"
+      your output     : "     0x4d2
+"
+      expected (nonprintable as hex) : "    0x4d2\x0a"
+      actual   (nonprintable as hex) : "     0x4d2\x0a"
 
-Test 1066 (X_size_ll_pos_ref) : FAILED.
-    First line of code: {return test("%llX", ull_pos_1);}
-      expected output : "1450C9174865"
-      your output     : "C9174865"
-      expected (nonprintable as hex) : "1450C9174865"
-      actual   (nonprintable as hex) : "C9174865"
+Test 1286 (p_ftfc_literal_2w_prec9_undefbehav) : FAILED.
+    First line of code: {return test("%2.9p
+", 1234);}
+      expected output : "0x0000004d2
+"
+      your output     : "0x4d2
+"
+      expected (nonprintable as hex) : "0x0000004d2\x0a"
+      actual   (nonprintable as hex) : "0x4d2\x0a"
 
-Test 1067 (X_size_l_pos_big) : FAILED.
-    First line of code: {return test("%lX", 22337203685477ul);}
-      expected output : "1450C9174865"
-      your output     : "C9174865"
-      expected (nonprintable as hex) : "1450C9174865"
-      actual   (nonprintable as hex) : "C9174865"
+Test 1287 (p_ftfc_zero_prec5_undefbehav) : FAILED.
+    First line of code: {return test("%.5p", 0);}
+      expected output : "0x00000"
+      your output     : "0x0"
+      expected (nonprintable as hex) : "0x00000"
+      actual   (nonprintable as hex) : "0x0"
 
-Test 1068 (X_size_ll_pos_big) : FAILED.
-    First line of code: {return test("%llX", 522337203685470ull);}
-      expected output : "1DB101B7A885E"
-      your output     : "1B7A885E"
-      expected (nonprintable as hex) : "1DB101B7A885E"
-      actual   (nonprintable as hex) : "1B7A885E"
+Test 1288 (p_ftfc_zero_prec0_undefbehav) : FAILED.
+    First line of code: {return test("%.0p", 0);}
+      expected output : "0x"
+      your output     : "0x0"
+      expected (nonprintable as hex) : "0x"
+      actual   (nonprintable as hex) : "0x0"
 
-Test 1069 (X_ullmax) : FAILED.
-    First line of code: {return test("%llX", ullmax);}
-      expected output : "7FFFFFFFFFFFFFFF"
-      your output     : "FFFFFFFF"
-      expected (nonprintable as hex) : "7FFFFFFFFFFFFFFF"
-      actual   (nonprintable as hex) : "FFFFFFFF"
+Test 1289 (p_ftfc_5w_throwswarning) : FAILED.
+    First line of code: {return test("%5p", 0);}
+      expected output : "  0x0"
+      your output     : "    0x0"
+      expected (nonprintable as hex) : "  0x0"
+      actual   (nonprintable as hex) : "    0x0"
 
-Test 1070 (X_ulmax) : FAILED.
-    First line of code: {return test("%lX", ulmax);}
-      expected output : "7FFFFFFFFFFFFFFF"
-      your output     : "FFFFFFFF"
-      expected (nonprintable as hex) : "7FFFFFFFFFFFFFFF"
-      actual   (nonprintable as hex) : "FFFFFFFF"
+Test 1291 (p_width_fit) : FAILED.
+    First line of code: {return test("%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p%70p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);      expected output : "                                                           0x10b6dab59                                                           0x10b6dab5a          "
+      your output     : "                                                             0x10b6dab59                                                             0x10b6dab5a      "
+      expected (nonprintable as hex) : "                                                           0x10b6dab59                                                           0x10b6dab5a          "
+      actual   (nonprintable as hex) : "                                                             0x10b6dab59                                                             0x10b6dab5a      "
 
-Test 1073 (X_size_l_pos_big_zp) : FAILED.
-    First line of code: {return test("%037lX", 22337203685477ul);}
-      expected output : "00000000000000000000000001450C9174865"
-      your output     : "00000000000000000000000000000C9174865"
-      expected (nonprintable as hex) : "00000000000000000000000001450C9174865"
-      actual   (nonprintable as hex) : "00000000000000000000000000000C9174865"
+Test 1293 (p_width_16) : FAILED.
+    First line of code: {return test("%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p%16p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);      expected output : "     0x10b6dab59     0x10b6dab5a     0x10b6dab5c     0x10b6dab5e     0x10b6dab60     0x10b6dab64     0x10b6dab68     0x10b6dab70     0x10b6dab78     0"
+      your output     : "       0x10b6dab59       0x10b6dab5a       0x10b6dab5c       0x10b6dab5e       0x10b6dab60       0x10b6dab64       0x10b6dab68       0x10b6dab70      "
+      expected (nonprintable as hex) : "     0x10b6dab59     0x10b6dab5a     0x10b6dab5c     0x10b6dab5e     0x10b6dab60     0x10b6dab64     0x10b6dab68     0x10b6dab70     0x10b6dab78     0"
+      actual   (nonprintable as hex) : "       0x10b6dab59       0x10b6dab5a       0x10b6dab5c       0x10b6dab5e       0x10b6dab60       0x10b6dab64       0x10b6dab68       0x10b6dab70      "
 
-Test 1074 (X_size_ll_pos_big_width) : FAILED.
-    First line of code: {return test("%37llX", 522337203685470ull);}
-      expected output : "                        1DB101B7A885E"
-      your output     : "                             1B7A885E"
-      expected (nonprintable as hex) : "                        1DB101B7A885E"
-      actual   (nonprintable as hex) : "                             1B7A885E"
+Test 1295 (p_width_32) : FAILED.
+    First line of code: {return test("%32p%32p%32p%32p%32p%32p%32p%32p%32p%32p%32p%32p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10,&a11,&a12);      expected output : "                     0x10b6dab59                     0x10b6dab5a                     0x10b6dab5c                     0x10b6dab5e                     0"
+      your output     : "                       0x10b6dab59                       0x10b6dab5a                       0x10b6dab5c                       0x10b6dab5e              "
+      expected (nonprintable as hex) : "                     0x10b6dab59                     0x10b6dab5a                     0x10b6dab5c                     0x10b6dab5e                     0"
+      actual   (nonprintable as hex) : "                       0x10b6dab59                       0x10b6dab5a                       0x10b6dab5c                       0x10b6dab5e              "
 
-Test 1075 (X_size_ll_hh_ll) : FAILED.
-    First line of code: {return test("%llu%hhu%llX", ull_pos_1, uch_pos_1, ull_pos_1);}
-      expected output : "223372036854771001450C9174865"
-      your output     : "3373746277100C9174865"
-      expected (nonprintable as hex) : "223372036854771001450C9174865"
-      actual   (nonprintable as hex) : "3373746277100C9174865"
+Test 1296 (p_width_fit_lj) : FAILED.
+    First line of code: {return test("%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p%-70p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10      expected output : "0x10b6dab59                                                           0x10b6dab5a                                                           0x10b6dab5"
+      your output     : "0x10b6dab59                                                             0x10b6dab5a                                                             0x10b6"
+      expected (nonprintable as hex) : "0x10b6dab59                                                           0x10b6dab5a                                                           0x10b6dab5"
+      actual   (nonprintable as hex) : "0x10b6dab59                                                             0x10b6dab5a                                                             0x10b6"
 
-Test 1076 (X_size_h_l_hh) : FAILED.
-    First line of code: {return test("%hu%lu%hhX", ush_pos_1, ul_pos_1, uch_pos_1);}
-      expected output : "30472233720368547764"
-      your output     : "3047337374627764"
-      expected (nonprintable as hex) : "30472233720368547764"
-      actual   (nonprintable as hex) : "3047337374627764"
+Test 1298 (p_width_16_lj) : FAILED.
+    First line of code: {return test("%-16p%-16p%-16p%-16p%-16p%-16p%-16p%-16p%-16p%-16p%-16p%-16p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10      expected output : "0x10b6dab59     0x10b6dab5a     0x10b6dab5c     0x10b6dab5e     0x10b6dab60     0x10b6dab64     0x10b6dab68     0x10b6dab70     0x10b6dab78     0x10b6"
+      your output     : "0x10b6dab59       0x10b6dab5a       0x10b6dab5c       0x10b6dab5e       0x10b6dab60       0x10b6dab64       0x10b6dab68       0x10b6dab70       0x10b6"
+      expected (nonprintable as hex) : "0x10b6dab59     0x10b6dab5a     0x10b6dab5c     0x10b6dab5e     0x10b6dab60     0x10b6dab64     0x10b6dab68     0x10b6dab70     0x10b6dab78     0x10b6"
+      actual   (nonprintable as hex) : "0x10b6dab59       0x10b6dab5a       0x10b6dab5c       0x10b6dab5e       0x10b6dab60       0x10b6dab64       0x10b6dab68       0x10b6dab70       0x10b6"
 
-Test 1077 (X_size_l_hh_h) : FAILED.
-    First line of code: {return test("%lu%hhu%hX", ul_pos_1, uch_pos_1, ush_pos_1);}
-      expected output : "22337203685477100BE7"
-      your output     : "3373746277100BE7"
-      expected (nonprintable as hex) : "22337203685477100BE7"
-      actual   (nonprintable as hex) : "3373746277100BE7"
-
-Test 1078 (X_size_n_ll_hh) : FAILED.
-    First line of code: {return test("%u%llu%hhX", ui_pos_1, ull_pos_1, uch_pos_1);}
-      expected output : "8780232233720368547764"
-      your output     : "878023337374627764"
-      expected (nonprintable as hex) : "8780232233720368547764"
-      actual   (nonprintable as hex) : "878023337374627764"
-
-Test 1079 (X_size_ll_n_l) : FAILED.
-    First line of code: {return test("%llu%u%lX", ull_pos_1, ui_pos_1, ul_pos_1);}
-      expected output : "223372036854778780231450C9174865"
-      your output     : "3373746277878023C9174865"
-      expected (nonprintable as hex) : "223372036854778780231450C9174865"
-      actual   (nonprintable as hex) : "3373746277878023C9174865"
-
-Test 1125 (X_size_l_pos_ref_af) : FAILED.
-    First line of code: {return test("%#lX", ul_pos_1);}
-      expected output : "0X1450C9174865"
-      your output     : "0XC9174865"
-      expected (nonprintable as hex) : "0X1450C9174865"
-      actual   (nonprintable as hex) : "0XC9174865"
-
-Test 1126 (X_size_ll_pos_ref_af) : FAILED.
-    First line of code: {return test("%#llX", ull_pos_1);}
-      expected output : "0X1450C9174865"
-      your output     : "0XC9174865"
-      expected (nonprintable as hex) : "0X1450C9174865"
-      actual   (nonprintable as hex) : "0XC9174865"
-
-Test 1127 (X_size_l_pos_big_af) : FAILED.
-    First line of code: {return test("%#lX", 22337203685477ul);}
-      expected output : "0X1450C9174865"
-      your output     : "0XC9174865"
-      expected (nonprintable as hex) : "0X1450C9174865"
-      actual   (nonprintable as hex) : "0XC9174865"
-
-Test 1128 (X_size_ll_pos_big_af) : FAILED.
-    First line of code: {return test("%#llX", 522337203685470ull);}
-      expected output : "0X1DB101B7A885E"
-      your output     : "0X1B7A885E"
-      expected (nonprintable as hex) : "0X1DB101B7A885E"
-      actual   (nonprintable as hex) : "0X1B7A885E"
-
-Test 1129 (X_ullmax_af) : FAILED.
-    First line of code: {return test("%#llX", ullmax);}
-      expected output : "0X7FFFFFFFFFFFFFFF"
-      your output     : "0XFFFFFFFF"
-      expected (nonprintable as hex) : "0X7FFFFFFFFFFFFFFF"
-      actual   (nonprintable as hex) : "0XFFFFFFFF"
-
-Test 1130 (X_ulmax_af) : FAILED.
-    First line of code: {return test("%#lX", ulmax);}
-      expected output : "0X7FFFFFFFFFFFFFFF"
-      your output     : "0XFFFFFFFF"
-      expected (nonprintable as hex) : "0X7FFFFFFFFFFFFFFF"
-      actual   (nonprintable as hex) : "0XFFFFFFFF"
-
-Test 1133 (X_size_l_pos_big_zp_af) : FAILED.
-    First line of code: {return test("%#037lX", 22337203685477ul);}
-      expected output : "0X000000000000000000000001450C9174865"
-      your output     : "0X000000000000000000000000000C9174865"
-      expected (nonprintable as hex) : "0X000000000000000000000001450C9174865"
-      actual   (nonprintable as hex) : "0X000000000000000000000000000C9174865"
-
-Test 1134 (X_size_ll_pos_big_width_af) : FAILED.
-    First line of code: {return test("%#37llX", 522337203685470ull);}
-      expected output : "                      0X1DB101B7A885E"
-      your output     : "                           0X1B7A885E"
-      expected (nonprintable as hex) : "                      0X1DB101B7A885E"
-      actual   (nonprintable as hex) : "                           0X1B7A885E"
-
-Test 1135 (X_size_ll_hh_ll_af) : FAILED.
-    First line of code: {return test("%llu%hhu%#llX", ull_pos_1, uch_pos_1, ull_pos_1);}
-      expected output : "223372036854771000X1450C9174865"
-      your output     : "33737462771000XC9174865"
-      expected (nonprintable as hex) : "223372036854771000X1450C9174865"
-      actual   (nonprintable as hex) : "33737462771000XC9174865"
-
-Test 1136 (X_size_h_l_hh_af) : FAILED.
-    First line of code: {return test("%#hx%lu%#hhX", ush_pos_1, ul_pos_1, uch_pos_1);}
-      expected output : "0xbe7223372036854770X64"
-      your output     : "0xbe733737462770X64"
-      expected (nonprintable as hex) : "0xbe7223372036854770X64"
-      actual   (nonprintable as hex) : "0xbe733737462770X64"
-
-Test 1137 (X_size_l_hh_h_af) : FAILED.
-    First line of code: {return test("%lu%hhu%#hX", ul_pos_1, uch_pos_1, ush_pos_1);}
-      expected output : "223372036854771000XBE7"
-      your output     : "33737462771000XBE7"
-      expected (nonprintable as hex) : "223372036854771000XBE7"
-      actual   (nonprintable as hex) : "33737462771000XBE7"
-
-Test 1138 (X_size_n_ll_hh_af) : FAILED.
-    First line of code: {return test("%#x%llu%#hhX", ui_pos_1, ull_pos_1, uch_pos_1);}
-      expected output : "0xd65c7223372036854770X64"
-      your output     : "0xd65c733737462770X64"
-      expected (nonprintable as hex) : "0xd65c7223372036854770X64"
-      actual   (nonprintable as hex) : "0xd65c733737462770X64"
-
-Test 1139 (X_size_ll_n_l_af) : FAILED.
-    First line of code: {return test("%#llx%u%#lX", ull_pos_1, ui_pos_1, ul_pos_1);}
-      expected output : "0x1450c91748658780230X1450C9174865"
-      your output     : "0xc91748658780230XC9174865"
-      expected (nonprintable as hex) : "0x1450c91748658780230X1450C9174865"
-      actual   (nonprintable as hex) : "0xc91748658780230XC9174865"
+Test 1300 (p_width_32_lj) : FAILED.
+    First line of code: {return test("%-32p%-32p%-32p%-32p%-32p%-32p%-32p%-32p%-32p%-32p%-32p%-32p",&a01,&a02,&a03,&a04,&a05,&a06,&a07,&a08,&a09,&a10      expected output : "0x10b6dab59                     0x10b6dab5a                     0x10b6dab5c                     0x10b6dab5e                     0x10b6dab60           "
+      your output     : "0x10b6dab59                       0x10b6dab5a                       0x10b6dab5c                       0x10b6dab5e                       0x10b6dab60   "
+      expected (nonprintable as hex) : "0x10b6dab59                     0x10b6dab5a                     0x10b6dab5c                     0x10b6dab5e                     0x10b6dab60           "
+      actual   (nonprintable as hex) : "0x10b6dab59                       0x10b6dab5a                       0x10b6dab5c                       0x10b6dab5e                       0x10b6dab60   "
 

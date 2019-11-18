@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 12:32:39 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/15 15:59:29 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/18 11:58:39 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,6 +18,8 @@ void	ft_print_un_int(t_conv *conv, va_list a_list, int *in_len)
 {
 	unsigned int num;
 
+	if (conv->sizemod == 1)
+		return (ft_ll_num(conv, a_list, in_len));
 	num = va_arg(a_list, unsigned int);
 	ft_prep_un_int(conv, num);
 	if (conv->hassign && (conv->leftj || conv->padzero))
