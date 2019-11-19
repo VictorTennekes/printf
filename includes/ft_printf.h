@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:15:40 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/18 15:14:15 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/19 14:47:49 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,6 +26,7 @@ typedef struct	s_conv
 	int			hassign;
 	int			sizemod;
 	int			size;
+	int			n_count;
 }				t_conv;
 
 /*
@@ -43,12 +44,13 @@ void			ft_call_convert(t_conv *conv, va_list a_list, int *in_len);
 */
 void			ft_print_char(t_conv *conv, va_list a_list, int *in_len);
 void			ft_print_str(t_conv *conv, va_list a_list, int *in_len);
-void			ft_print_address(t_conv *conv, va_list a_list, int *in_len);
+void			ft_print_pointer(t_conv *conv, va_list a_list, int *in_len);
 void			ft_print_int(t_conv *conv, va_list a_list, int *in_len);
 void			ft_print_un_int(t_conv *conv, va_list a_list, int *in_len);
 void			ft_print_lower_hex(t_conv *conv, va_list a_list, int *in_len);
 void			ft_print_upper_hex(t_conv *conv, va_list a_list, int *in_len);
 void			ft_print_percent(t_conv *conv, va_list a_list, int *in_len);
+void			ft_print_count(t_conv *conv, va_list a_list, int *in_len);
 
 /*
 ** CHARS AND STRINGS
@@ -61,7 +63,9 @@ void			ft_putnstr_count_fd(char *str, int fd, int n, int *in_len);
 /*
 ** ADDRESS
 */
-void			ft_put_address(unsigned long address, int *in_len);
+unsigned long	ft_ptr_size(t_conv *conv, unsigned long ptr);
+void			ft_conv_ptr(t_conv *conv, unsigned long ptr);
+void			ft_ptr_res_fd(unsigned long ptr, int *in_len);
 
 /*
 **  INT AND DECIMAL
@@ -86,12 +90,28 @@ void			ft_puthex_lower_count_fd(unsigned int num, int *in_len);
 void			ft_puthex_upper_count_fd(unsigned int num, int *in_len);
 
 /*
-** SIZE MODIFIERS
+** SIZE MODIFIERS INT DEC
 */
 void			ft_size_num(t_conv *conv, va_list a_list, int *lv);
 void			ft_ll_num(t_conv *conv, va_list a_list, int *lv);
 void			ft_llint_c_fd(long long int num, int *lv);
-long long int	ft_ll_nbr_size(t_conv *conv, long long int num);
+int				ft_ll_nbr_size(t_conv *conv, long long int num);
 void			ft_conv_ll_int(t_conv *conv, long long int num);
+void			ft_prep_ll_int(t_conv *conv, long long int num);
+
+/*
+** SIZE MODIFIERS HEX
+*/
+void			ft_print_ll_x(t_conv *conv, va_list a_list, int *lv);
+int				ft_x_ll_size(t_conv *conv, unsigned long long num);
+void			ft_conv_ll_x(t_conv *conv, unsigned long long *num);
+void			ft_x_res_ll_c_fd(unsigned long long num, int *lv);
+void			ft_upx_res_ll_c_fd(unsigned long long num, int *lv);
+void			ft_print_ll_up_x(t_conv *conv, va_list a_list, int *lv);
+
+/*
+** UTILITIES
+*/
+int         	ft_valid_arg(t_conv *conv, const char **input);
 
 #endif

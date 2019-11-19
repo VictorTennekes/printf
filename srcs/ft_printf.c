@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 14:42:07 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/18 15:14:00 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/19 14:46:48 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,17 +21,20 @@ void	ft_init_conv_vars(t_conv *conv)
 	conv->precision = -2;
 	conv->leftj = 0;
 	conv->padzero = 0;
-	conv->sign = 0;
 	conv->various = 0;
-	conv->size = 0;
+	conv->sign = 0;
 	conv->hassign = 0;
 	conv->sizemod = 0;
+	conv->size = 0;
+	conv->n_count = 0;
 }
 
 void	ft_set_conv_vars(t_conv *conv, const char **input)
 {
 	char *type;
 
+	if (ft_valid_arg(conv, input))
+		return ;
 	*input += 1;
 	while (**input)
 	{
@@ -46,6 +49,8 @@ void	ft_set_conv_vars(t_conv *conv, const char **input)
 			type++;
 		}
 		ft_set_flags(conv, input);
+		if (ft_valid_arg(conv, input))
+			return ;
 		*input += 1;
 	}
 }
@@ -109,13 +114,13 @@ void	ft_call_convert(t_conv *conv, va_list a_list, int *in_len)
 	types = "cspdiuxXnfge%";
 	functions[0] = &ft_print_char;
 	functions[1] = &ft_print_str;
-	functions[2] = &ft_print_address;
+	functions[2] = &ft_print_pointer;
 	functions[3] = &ft_print_int;
 	functions[4] = &ft_print_int;
 	functions[5] = &ft_print_un_int;
 	functions[6] = &ft_print_lower_hex;
 	functions[7] = &ft_print_upper_hex;
-	// functions[8] = ;
+	functions[8] = &ft_print_count;
 	// functions[9] = ;
 	// functions[10] = ;
 	// functions[11] = ;
@@ -157,5 +162,8 @@ int				ft_printf(const char *input, ...)
 		input++;
 	}
 	va_end(a_list);
-	return (in_len);
+	if (conv.n_count)
+		return (conv.n_count);
+	else
+		return (in_len);
 }

@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 14:19:53 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/18 16:25:24 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/19 10:38:39 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -60,3 +60,4 @@ void	ft_putint_un_count_fd(unsigned int i, int *in_len)
 		pow = pow / 10;
 	}
 }
+

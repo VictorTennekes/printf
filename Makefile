@@ -6,14 +6,14 @@
 #    By: vtenneke <vtenneke@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/11 14:16:29 by vtenneke       #+#    #+#                 #
-#    Updated: 2019/11/18 16:10:25 by vtenneke      ########   odam.nl          #
+#    Updated: 2019/11/19 13:51:04 by vtenneke      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libftprintf.a
 SRCS		=	ft_printf ft_converters_cti ft_converters_u utilities/ft_chr_str\
 				utilities/ft_hex utilities/ft_int_dec_ll utilities/ft_int\
-				utilities/ft_un_int
+				utilities/ft_un_int utilities/ft_hex_ll utilities/ft_general_utils
 LIBSRCS		=	ft_putchar_fd ft_putstr_fd
 CFILES		=	$(SRCS:%=srcs/%.c)
 LIBCFILES	=	$(LIBSRCS:%=libft/%.c)

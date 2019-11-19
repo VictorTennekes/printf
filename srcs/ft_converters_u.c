@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 12:32:39 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/18 11:58:39 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/19 15:01:28 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -18,7 +18,7 @@ void	ft_print_un_int(t_conv *conv, va_list a_list, int *in_len)
 {
 	unsigned int num;
 
-	if (conv->sizemod == 1)
+	if (conv->sizemod == 1 || conv->sizemod == 2)
 		return (ft_ll_num(conv, a_list, in_len));
 	num = va_arg(a_list, unsigned int);
 	ft_prep_un_int(conv, num);
@@ -48,6 +48,8 @@ void	ft_print_lower_hex(t_conv *conv, va_list a_list, int *in_len)
 {
 	unsigned int num;
 
+	if (conv->sizemod == 1 || conv->sizemod == 2)
+		return (ft_print_ll_x(conv, a_list, in_len));
 	num = va_arg(a_list, unsigned int);
 	ft_prephex_int(conv, num);
 	if (conv->various && num != 0 && (conv->leftj || conv->padzero))
@@ -76,6 +78,8 @@ void	ft_print_upper_hex(t_conv *conv, va_list a_list, int *in_len)
 {
 	unsigned int num;
 
+	if (conv->sizemod == 1 || conv->sizemod == 2)
+		return (ft_print_ll_up_x(conv, a_list, in_len));
 	num = va_arg(a_list, unsigned int);
 	ft_prephex_int(conv, num);
 	if (conv->various && num != 0 && (conv->leftj || conv->padzero))
@@ -98,4 +102,9 @@ void	ft_print_upper_hex(t_conv *conv, va_list a_list, int *in_len)
 		if (conv->precision)
 			ft_puthex_upper_count_fd(num, in_len);
 	}
+}
+
+void	ft_print_count(t_conv *conv, va_list a_list, int *in_len)
+{
+	conv->n_count = (int)in_len;
 }
