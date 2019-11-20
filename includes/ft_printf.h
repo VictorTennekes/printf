@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:15:40 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/19 14:47:49 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/20 10:05:43 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,6 @@ void			ft_putnstr_count_fd(char *str, int fd, int n, int *in_len);
 ** ADDRESS
 */
 unsigned long	ft_ptr_size(t_conv *conv, unsigned long ptr);
-void			ft_conv_ptr(t_conv *conv, unsigned long ptr);
 void			ft_ptr_res_fd(unsigned long ptr, int *in_len);
 
 /*

@@ -6,17 +6,18 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/12 17:20:26 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/18 14:23:08 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/20 09:58:30 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
+#include <stdio.h>
 
 void	ft_putchar_count_fd(char c, int fd, int *in_len)
 {
 	ft_putchar_fd(c, fd);
-	in_len += 1;
+	*in_len += 1;
 }
 
 void	ft_pad(int width, int precision, int pad, int *in_len)

@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/15 12:32:39 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/19 15:01:28 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/20 13:21:28 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -106,5 +106,13 @@ void	ft_print_upper_hex(t_conv *conv, va_list a_list, int *in_len)
 
 void	ft_print_count(t_conv *conv, va_list a_list, int *in_len)
 {
-	conv->n_count = (int)in_len;
+	int	*count;
+
+	count = va_arg(a_list, int*);
+	*count = *in_len;
 }
+
+// void	ft_print_float(t_conv *conv, va_list a_list, int *in_len)
+// {
+	
+// }

@@ -2477,16 +2477,16 @@ int c_nullterm_5wlj(void){return ft_printf("%-5c", '\0');}
 
 //Arbitrary argument numbers
 
-int		argnum_simple_swap(void){return ft_printf("%2$s, %1$s!", "world", "hello");} //CAN-SEGFAULT
-int		argnum_swap_around_pct(void){return ft_printf("%2$s %% %1$s!", "world", "hello");} //CAN-SEGFAULT
-int		argnum_swap_strfloat(void){return ft_printf("%2$f, %1$s!", "world", 5.75);} //CAN-SEGFAULT
-int		argnum_swap_floatstr(void){return ft_printf("%2$s, %1$f!", 5.75, "abc");} //CAN-SEGFAULT
-int		argnum_swap_ldblstr(void){return ft_printf("%2$s, %1$Lf!", 5.75L, "abc");} //CAN-SEGFAULT
-int		argnum_swap_strldbl(void){return ft_printf("%2$Lf, %1$s!", "world", 5.75L);} //CAN-SEGFAULT
-int		argnum_swap_ldblchar(void){return ft_printf("%2$c, %1$Lf!", 5.75L, 'c');} //CAN-SEGFAULT
-int		argnum_swap_charldbl(void){return ft_printf("%2$Lf, %1$c!", 'c', 5.75L);} //CAN-SEGFAULT
-int		argnum_swap_floatstr_around_pct(void){return ft_printf("%2$s %% %1$f!", 5.75, "abc");} //CAN-SEGFAULT
-int		argnum_swap_strfloat_around_pct(void){return ft_printf("%2$f %% %1$s!", "world", 5.75);} //CAN-SEGFAULT
+ int		argnum_simple_swap(void){return ft_printf("%2$s, %1$s!", "world", "hello");} //CAN-SEGFAULT
+ int		argnum_swap_around_pct(void){return ft_printf("%2$s %% %1$s!", "world", "hello");} //CAN-SEGFAULT
+ int		argnum_swap_strfloat(void){return ft_printf("%2$f, %1$s!", "world", 5.75);} //CAN-SEGFAULT
+ int		argnum_swap_floatstr(void){return ft_printf("%2$s, %1$f!", 5.75, "abc");} //CAN-SEGFAULT
+ int		argnum_swap_ldblstr(void){return ft_printf("%2$s, %1$Lf!", 5.75L, "abc");} //CAN-SEGFAULT
+ int		argnum_swap_strldbl(void){return ft_printf("%2$Lf, %1$s!", "world", 5.75L);} //CAN-SEGFAULT
+ int		argnum_swap_ldblchar(void){return ft_printf("%2$c, %1$Lf!", 5.75L, 'c');} //CAN-SEGFAULT
+ int		argnum_swap_charldbl(void){return ft_printf("%2$Lf, %1$c!", 'c', 5.75L);} //CAN-SEGFAULT
+ int		argnum_swap_floatstr_around_pct(void){return ft_printf("%2$s %% %1$f!", 5.75, "abc");} //CAN-SEGFAULT
+ int		argnum_swap_strfloat_around_pct(void){return ft_printf("%2$f %% %1$s!", "world", 5.75);} //CAN-SEGFAULT
 int		argnum_loopback_throwswarning(void){return ft_printf("%i %i %1$i %i %i", 1, 2, 3);} //CAN-SEGFAULT
 int		argnum_onlyone(void){return ft_printf("%1$s %1$s %1$s %1$s %1$s %1$s %1$s %1$s.", "buffalo");} //CAN-SEGFAULT
 int		argnum_start2thentofloatthen1_throwswarning(void){return ft_printf("%2$s %f %1$i", 5, "abc", 5.75f);} //CAN-SEGFAULT
@@ -9399,16 +9399,16 @@ const t_test_entry g_unit_tests[] = {
 	{0, 2000, "f_L_stress_limits_ndblmin_prec12", f_L_stress_limits_ndblmin_prec12, f_L_stress_limits_ndblmin_prec12_bench, "{return test(\"%.12Lf\", -LDBL_MIN);}"},
 	{0, 2001, "f_L_stress_limits_ndblmin_prec16", f_L_stress_limits_ndblmin_prec16, f_L_stress_limits_ndblmin_prec16_bench, "{return test(\"%.16Lf\", -LDBL_MIN);}"},
 	{0, 2002, "f_L_stress_limits_ndblmin_prec18", f_L_stress_limits_ndblmin_prec18, f_L_stress_limits_ndblmin_prec18_bench, "{return test(\"%.18Lf\", -LDBL_MIN);}"},
-	{1, 2003, "argnum_simple_swap", argnum_simple_swap, argnum_simple_swap_bench, "{return test(\"%2$s, %1$s!\", \"world\", \"hello\");} //CAN-SEGFAULT"},
-	{1, 2004, "argnum_swap_around_pct", argnum_swap_around_pct, argnum_swap_around_pct_bench, "{return test(\"%2$s %% %1$s!\", \"world\", \"hello\");} //CAN-SEGFAULT"},
-	{1, 2005, "argnum_swap_strfloat", argnum_swap_strfloat, argnum_swap_strfloat_bench, "{return test(\"%2$f, %1$s!\", \"world\", 5.75);} //CAN-SEGFAULT"},
-	{1, 2006, "argnum_swap_floatstr", argnum_swap_floatstr, argnum_swap_floatstr_bench, "{return test(\"%2$s, %1$f!\", 5.75, \"abc\");} //CAN-SEGFAULT"},
-	{1, 2007, "argnum_swap_ldblstr", argnum_swap_ldblstr, argnum_swap_ldblstr_bench, "{return test(\"%2$s, %1$Lf!\", 5.75L, \"abc\");} //CAN-SEGFAULT"},
-	{1, 2008, "argnum_swap_strldbl", argnum_swap_strldbl, argnum_swap_strldbl_bench, "{return test(\"%2$Lf, %1$s!\", \"world\", 5.75L);} //CAN-SEGFAULT"},
-	{1, 2009, "argnum_swap_ldblchar", argnum_swap_ldblchar, argnum_swap_ldblchar_bench, "{return test(\"%2$c, %1$Lf!\", 5.75L, 'c');} //CAN-SEGFAULT"},
-	{1, 2010, "argnum_swap_charldbl", argnum_swap_charldbl, argnum_swap_charldbl_bench, "{return test(\"%2$Lf, %1$c!\", 'c', 5.75L);} //CAN-SEGFAULT"},
-	{1, 2011, "argnum_swap_floatstr_around_pct", argnum_swap_floatstr_around_pct, argnum_swap_floatstr_around_pct_bench, "{return test(\"%2$s %% %1$f!\", 5.75, \"abc\");} //CAN-SEGFAULT"},
-	{1, 2012, "argnum_swap_strfloat_around_pct", argnum_swap_strfloat_around_pct, argnum_swap_strfloat_around_pct_bench, "{return test(\"%2$f %% %1$s!\", \"world\", 5.75);} //CAN-SEGFAULT"},
+	{0, 2003, "argnum_simple_swap", argnum_simple_swap, argnum_simple_swap_bench, "{return test(\"%2$s, %1$s!\", \"world\", \"hello\");} //CAN-SEGFAULT"},
+	{0, 2004, "argnum_swap_around_pct", argnum_swap_around_pct, argnum_swap_around_pct_bench, "{return test(\"%2$s %% %1$s!\", \"world\", \"hello\");} //CAN-SEGFAULT"},
+	{0, 2005, "argnum_swap_strfloat", argnum_swap_strfloat, argnum_swap_strfloat_bench, "{return test(\"%2$f, %1$s!\", \"world\", 5.75);} //CAN-SEGFAULT"},
+	{0, 2006, "argnum_swap_floatstr", argnum_swap_floatstr, argnum_swap_floatstr_bench, "{return test(\"%2$s, %1$f!\", 5.75, \"abc\");} //CAN-SEGFAULT"},
+	{0, 2007, "argnum_swap_ldblstr", argnum_swap_ldblstr, argnum_swap_ldblstr_bench, "{return test(\"%2$s, %1$Lf!\", 5.75L, \"abc\");} //CAN-SEGFAULT"},
+	{0, 2008, "argnum_swap_strldbl", argnum_swap_strldbl, argnum_swap_strldbl_bench, "{return test(\"%2$Lf, %1$s!\", \"world\", 5.75L);} //CAN-SEGFAULT"},
+	{0, 2009, "argnum_swap_ldblchar", argnum_swap_ldblchar, argnum_swap_ldblchar_bench, "{return test(\"%2$c, %1$Lf!\", 5.75L, 'c');} //CAN-SEGFAULT"},
+	{0, 2010, "argnum_swap_charldbl", argnum_swap_charldbl, argnum_swap_charldbl_bench, "{return test(\"%2$Lf, %1$c!\", 'c', 5.75L);} //CAN-SEGFAULT"},
+	{0, 2011, "argnum_swap_floatstr_around_pct", argnum_swap_floatstr_around_pct, argnum_swap_floatstr_around_pct_bench, "{return test(\"%2$s %% %1$f!\", 5.75, \"abc\");} //CAN-SEGFAULT"},
+	{0, 2012, "argnum_swap_strfloat_around_pct", argnum_swap_strfloat_around_pct, argnum_swap_strfloat_around_pct_bench, "{return test(\"%2$f %% %1$s!\", \"world\", 5.75);} //CAN-SEGFAULT"},
 	{1, 2013, "argnum_loopback_throwswarning", argnum_loopback_throwswarning, argnum_loopback_throwswarning_bench, "{return test(\"%i %i %1$i %i %i\", 1, 2, 3);} //CAN-SEGFAULT"},
 	{1, 2014, "argnum_onlyone", argnum_onlyone, argnum_onlyone_bench, "{return test(\"%1$s %1$s %1$s %1$s %1$s %1$s %1$s %1$s.\", \"buffalo\");} //CAN-SEGFAULT"},
 	{1, 2015, "argnum_start2thentofloatthen1_throwswarning", argnum_start2thentofloatthen1_throwswarning, argnum_start2thentofloatthen1_throwswarning_bench, "{return test(\"%2$s %f %1$i\", 5, \"abc\", 5.75f);} //CAN-SEGFAULT"},

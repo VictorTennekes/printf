@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 14:42:07 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/19 14:46:48 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/20 16:32:41 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ void	ft_init_conv_vars(t_conv *conv)
 	conv->hassign = 0;
 	conv->sizemod = 0;
 	conv->size = 0;
-	conv->n_count = 0;
 }
 
 void	ft_set_conv_vars(t_conv *conv, const char **input)
@@ -145,10 +144,7 @@ int				ft_printf(const char *input, ...)
 	while (*input)
 	{
 		if (*input != '%')
-		{
-			ft_putchar_fd(*input, 1);
-			in_len++;
-		}
+			ft_putchar_count_fd(*input, 1, &in_len);
 		else
 		{
 			ft_init_conv_vars(&conv);
@@ -162,8 +158,5 @@ int				ft_printf(const char *input, ...)
 		input++;
 	}
 	va_end(a_list);
-	if (conv.n_count)
-		return (conv.n_count);
-	else
-		return (in_len);
+	return (in_len);
 }
