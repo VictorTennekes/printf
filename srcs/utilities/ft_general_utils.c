@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 13:47:52 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/20 11:47:35 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/21 13:00:08 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -22,7 +22,7 @@ int				ft_valid_arg(t_conv *conv, const char **input)
 	return (0);
 }
 
-unsigned long	ft_ptr_size(t_conv *conv, unsigned long ptr)
+unsigned long	ft_ptr_size(unsigned long ptr)
 {
 	unsigned long	tmp;
 	unsigned long	size;

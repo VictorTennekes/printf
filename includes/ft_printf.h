@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:15:40 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/20 10:05:43 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/21 13:04:58 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,6 +51,9 @@ void			ft_print_lower_hex(t_conv *conv, va_list a_list, int *in_len);
 void			ft_print_upper_hex(t_conv *conv, va_list a_list, int *in_len);
 void			ft_print_percent(t_conv *conv, va_list a_list, int *in_len);
 void			ft_print_count(t_conv *conv, va_list a_list, int *in_len);
+void			ft_print_float(t_conv *conv, va_list a_list, int *in_len);
+void			ft_print_significant(t_conv *conv, va_list a_list, int *in_len);
+void			ft_print_scientific(t_conv *conv, va_list a_list, int *in_len);
 
 /*
 ** CHARS AND STRINGS
@@ -63,46 +66,44 @@ void			ft_putnstr_count_fd(char *str, int fd, int n, int *in_len);
 /*
 ** ADDRESS
 */
-unsigned long	ft_ptr_size(t_conv *conv, unsigned long ptr);
+unsigned long	ft_ptr_size(unsigned long ptr);
 void			ft_ptr_res_fd(unsigned long ptr, int *in_len);
 
 /*
 **  INT AND DECIMAL
 */
 void			ft_prep_int(t_conv *conv, int *i);
-int				ft_putint_size(int i, t_conv *conv);
+int				ft_putint_size(int i);
 void			ft_putint_count_fd(int i, int *in_len);
 
 /*
 ** UNSIGNED INT
 */
+void			ft_prep_un_int(t_conv *conv, unsigned int *i);
 void			ft_putint_un_count_fd(unsigned int i, int *in_len);
-int				ft_putint_un_size(unsigned int i, t_conv *conv);
-void			ft_prep_un_int(t_conv *conv, unsigned int i);
+int				ft_putint_un_size(unsigned int i);
 
 /*
 ** HEX LOWER AND UPPER
 */
-void			ft_prephex_int(t_conv *conv, unsigned int num);
-int				ft_puthex_size(unsigned int num, t_conv *conv);
+void			ft_prephex_int(t_conv *conv, unsigned int *i);
+int				ft_puthex_size(unsigned int num);
 void			ft_puthex_lower_count_fd(unsigned int num, int *in_len);
 void			ft_puthex_upper_count_fd(unsigned int num, int *in_len);
 
 /*
 ** SIZE MODIFIERS INT DEC
 */
-void			ft_size_num(t_conv *conv, va_list a_list, int *lv);
 void			ft_ll_num(t_conv *conv, va_list a_list, int *lv);
 void			ft_llint_c_fd(long long int num, int *lv);
-int				ft_ll_nbr_size(t_conv *conv, long long int num);
-void			ft_conv_ll_int(t_conv *conv, long long int num);
+int				ft_ll_nbr_size(long long int num);
 void			ft_prep_ll_int(t_conv *conv, long long int num);
 
 /*
 ** SIZE MODIFIERS HEX
 */
 void			ft_print_ll_x(t_conv *conv, va_list a_list, int *lv);
-int				ft_x_ll_size(t_conv *conv, unsigned long long num);
+int				ft_x_ll_size(unsigned long long num);
 void			ft_conv_ll_x(t_conv *conv, unsigned long long *num);
 void			ft_x_res_ll_c_fd(unsigned long long num, int *lv);
 void			ft_upx_res_ll_c_fd(unsigned long long num, int *lv);
@@ -111,6 +112,6 @@ void			ft_print_ll_up_x(t_conv *conv, va_list a_list, int *lv);
 /*
 ** UTILITIES
 */
-int         	ft_valid_arg(t_conv *conv, const char **input);
+int				ft_valid_arg(t_conv *conv, const char **input);
 
 #endif

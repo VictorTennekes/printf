@@ -2477,16 +2477,16 @@ int c_nullterm_5wlj(void){return test("%-5c", '\0');}
 
 //Arbitrary argument numbers
 
- int		argnum_simple_swap(void){return test("%2$s, %1$s!", "world", "hello");} //CAN-SEGFAULT
- int		argnum_swap_around_pct(void){return test("%2$s %% %1$s!", "world", "hello");} //CAN-SEGFAULT
- int		argnum_swap_strfloat(void){return test("%2$f, %1$s!", "world", 5.75);} //CAN-SEGFAULT
- int		argnum_swap_floatstr(void){return test("%2$s, %1$f!", 5.75, "abc");} //CAN-SEGFAULT
- int		argnum_swap_ldblstr(void){return test("%2$s, %1$Lf!", 5.75L, "abc");} //CAN-SEGFAULT
- int		argnum_swap_strldbl(void){return test("%2$Lf, %1$s!", "world", 5.75L);} //CAN-SEGFAULT
- int		argnum_swap_ldblchar(void){return test("%2$c, %1$Lf!", 5.75L, 'c');} //CAN-SEGFAULT
- int		argnum_swap_charldbl(void){return test("%2$Lf, %1$c!", 'c', 5.75L);} //CAN-SEGFAULT
- int		argnum_swap_floatstr_around_pct(void){return test("%2$s %% %1$f!", 5.75, "abc");} //CAN-SEGFAULT
- int		argnum_swap_strfloat_around_pct(void){return test("%2$f %% %1$s!", "world", 5.75);} //CAN-SEGFAULT
+int		argnum_simple_swap(void){return test("%2$s, %1$s!", "world", "hello");} //CAN-SEGFAULT
+int		argnum_swap_around_pct(void){return test("%2$s %% %1$s!", "world", "hello");} //CAN-SEGFAULT
+int		argnum_swap_strfloat(void){return test("%2$f, %1$s!", "world", 5.75);} //CAN-SEGFAULT
+int		argnum_swap_floatstr(void){return test("%2$s, %1$f!", 5.75, "abc");} //CAN-SEGFAULT
+int		argnum_swap_ldblstr(void){return test("%2$s, %1$Lf!", 5.75L, "abc");} //CAN-SEGFAULT
+int		argnum_swap_strldbl(void){return test("%2$Lf, %1$s!", "world", 5.75L);} //CAN-SEGFAULT
+int		argnum_swap_ldblchar(void){return test("%2$c, %1$Lf!", 5.75L, 'c');} //CAN-SEGFAULT
+int		argnum_swap_charldbl(void){return test("%2$Lf, %1$c!", 'c', 5.75L);} //CAN-SEGFAULT
+int		argnum_swap_floatstr_around_pct(void){return test("%2$s %% %1$f!", 5.75, "abc");} //CAN-SEGFAULT
+int		argnum_swap_strfloat_around_pct(void){return test("%2$f %% %1$s!", "world", 5.75);} //CAN-SEGFAULT
 int		argnum_loopback_throwswarning(void){return test("%i %i %1$i %i %i", 1, 2, 3);} //CAN-SEGFAULT
 int		argnum_onlyone(void){return test("%1$s %1$s %1$s %1$s %1$s %1$s %1$s %1$s.", "buffalo");} //CAN-SEGFAULT
 int		argnum_start2thentofloatthen1_throwswarning(void){return test("%2$s %f %1$i", 5, "abc", 5.75f);} //CAN-SEGFAULT

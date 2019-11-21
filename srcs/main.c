@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 12:23:11 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/20 16:38:08 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/21 10:58:46 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -51,8 +51,29 @@ int	main(void)
 
 	// printf("%i", thing);
 
-	char *str = "%.0i\n";
-    ft_printf(str, 20);
-    printf(str, 20);
+	// char *str = "%.0i\n";
+    // ft_printf(str, 20);
+    // printf(str, 20);
+	char *str11 = "|%-101.+.60d|\n";
+	ft_printf(str11, 2000);
+	printf(str11, 2000);
+	char *str123 = "|%.-+100d|\n";
+	ft_printf(str123, 2000);
+	printf(str123, 2000);
+	char *str12 = "|%+.100X|\n";
+	ft_printf(str12, 2000);
+	printf(str12, 2000);
+	char *str = "|%.-100X|\n";
+	ft_printf(str, 2000);
+	printf(str, 2000);
+	char *str1 = "|%7x|\n";
+	ft_printf(str1, 33000);
+	printf(str1, 33000);
+	char *str2 = "|%.0s|\n";
+	ft_printf(str2, "Griffin has a tiny dick");
+	printf(str2, "Griffin has a tiny dick");
+	char *str23 = "|%.03s|\n";
+	ft_printf(str23, "Griffin has a tiny dick");
+	printf(str23, "Griffin has a tiny dick");\
 	return (0);
 }

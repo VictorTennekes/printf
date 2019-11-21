@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/19 11:13:57 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/19 13:14:30 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/21 13:04:43 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -41,7 +41,7 @@ void		ft_print_ll_x(t_conv *conv, va_list a_list, int *in_len)
 	}
 }
 
-int			ft_x_ll_size(t_conv *conv, unsigned long long num)
+int			ft_x_ll_size(unsigned long long num)
 {
 	unsigned long long	tmp;
 	int					size;
@@ -64,7 +64,7 @@ void		ft_conv_ll_x(t_conv *conv, unsigned long long *num)
 		*num = ((unsigned short)*num);
 	if (conv->size == 4)
 		*num = ((unsigned char)*num);
-	conv->size = ft_x_ll_size(conv, *num);
+	conv->size = ft_x_ll_size(*num);
 	if (conv->precision != -2)
 		conv->padzero = 0;
 	if (num == 0)

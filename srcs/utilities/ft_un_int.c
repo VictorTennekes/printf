@@ -6,24 +6,24 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 14:19:53 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/19 10:38:39 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/21 13:01:51 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-void	ft_prep_un_int(t_conv *conv, unsigned int i)
+void	ft_prep_un_int(t_conv *conv, unsigned int *i)
 {
-	conv->size = ft_putint_un_size(i, conv);
+	conv->size = ft_putint_un_size(*i);
 	if (conv->precision != -2)
 		conv->padzero = 0;
 	if (conv->precision == -2 ||
-		(conv->precision < conv->size && conv->precision != 0))
+		(conv->precision < conv->size && *i != 0))
 		conv->precision = conv->size;
 }
 
-int		ft_putint_un_size(unsigned int i, t_conv *conv)
+int		ft_putint_un_size(unsigned int i)
 {
 	unsigned int	tmp;
 	int				size;

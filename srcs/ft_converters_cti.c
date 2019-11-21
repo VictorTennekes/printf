@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/12 15:10:46 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/20 16:38:55 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/21 13:00:22 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -54,7 +54,7 @@ void		ft_print_pointer(t_conv *conv, va_list a_list, int *in_len)
 	unsigned long ptr;
 
 	ptr = (unsigned long)va_arg(a_list, void*);
-	conv->size = (ft_ptr_size(conv, ptr) + 2);
+	conv->size = (ft_ptr_size(ptr) + 2);
 	if (conv->precision == -2 ||
 		(conv->precision < conv->size && conv->precision != 0))
 		conv->precision = conv->size;

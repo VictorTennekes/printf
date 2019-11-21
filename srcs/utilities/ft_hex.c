@@ -6,26 +6,28 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 14:18:18 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/19 14:58:53 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/21 13:02:34 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <libft.h>
 #include <ft_printf.h>
 
-void	ft_prephex_int(t_conv *conv, unsigned int num)
+void	ft_prephex_int(t_conv *conv, unsigned int *num)
 {
-	conv->size = ft_puthex_size(num, conv);
+	if (conv->size == 'l')
+		*num = (long)*num;
+	conv->size = ft_puthex_size(*num);
 	if (conv->precision != -2)
 		conv->padzero = 0;
-	if (num == 0)
+	if (*num == 0)
 		conv->various = 0;
 	if (conv->precision == -2 ||
-		(conv->precision < conv->size && conv->precision != 0))
+		(conv->precision < conv->size && *num != 0))
 		conv->precision = conv->size;
 }
 
-int		ft_puthex_size(unsigned int i, t_conv *conv)
+int		ft_puthex_size(unsigned int i)
 {
 	unsigned int	tmp;
 	int				size;

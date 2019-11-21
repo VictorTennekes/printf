@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 14:11:56 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/19 11:48:46 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/21 13:03:37 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,7 +64,7 @@ void			ft_llint_c_fd(long long int num, int *in_len)
 	}
 }
 
-int	ft_ll_nbr_size(t_conv *conv, long long int num)
+int	ft_ll_nbr_size(long long int num)
 {
 	long long int		tmp;
 	int					size;
@@ -88,7 +88,7 @@ void			ft_prep_ll_int(t_conv *conv, long long int num)
 		conv->hassign = 1;
 		conv->sign = '-';
 	}
-	conv->size = ft_ll_nbr_size(conv, num);
+	conv->size = ft_ll_nbr_size(num);
 	if (conv->precision != -2)
 		conv->padzero = 0;
 	if (conv->precision == -2 ||

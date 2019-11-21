@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/13 14:42:07 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/20 16:32:41 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/21 12:42:17 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -120,9 +120,9 @@ void	ft_call_convert(t_conv *conv, va_list a_list, int *in_len)
 	functions[6] = &ft_print_lower_hex;
 	functions[7] = &ft_print_upper_hex;
 	functions[8] = &ft_print_count;
-	// functions[9] = ;
-	// functions[10] = ;
-	// functions[11] = ;
+	functions[9] = &ft_print_float;
+	functions[10] = &ft_print_significant;
+	functions[11] = &ft_print_scientific;
 	functions[12] = &ft_print_percent;
 	i = 0;
 	while (types[i])

@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/18 14:22:22 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/18 14:55:00 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/21 13:01:09 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -24,15 +24,15 @@ void	ft_prep_int(t_conv *conv, int *i)
 		conv->hassign = 1;
 		conv->sign = '-';
 	}
-	conv->size = ft_putint_size(*i, conv);
+	conv->size = ft_putint_size(*i);
 	if (conv->precision != -2)
 		conv->padzero = 0;
 	if (conv->precision == -2 ||
-		(conv->precision < conv->size && conv->precision != 0))
+		(conv->precision < conv->size && *i != 0))
 		conv->precision = conv->size;
 }
 
-int		ft_putint_size(int i, t_conv *conv)
+int		ft_putint_size(int i)
 {
 	int		tmp;
 	int		size;
