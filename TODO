@@ -1,3 +1,0 @@
-CONVERSIONS:	cspdiuxX%
-FLAGS:			-0.*
-%[flags][width][.precision][length]specifier

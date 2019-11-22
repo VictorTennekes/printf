@@ -1,31 +1,34 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_int_dec_ll.c                                    :+:    :+:            */
+/*   ft_print_int.c                                     :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/18 14:11:56 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/21 13:03:37 by vtenneke      ########   odam.nl         */
+/*   Created: 2019/11/22 11:13:49 by vtenneke       #+#    #+#                */
+/*   Updated: 2019/11/22 14:13:56 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <ft_printf.h>
 
-void			ft_ll_num(t_conv *conv, va_list a_list, int *in_len)
+void		ft_print_int(t_conv *conv, va_list a_list, int *in_len)
 {
-	long long int num;
+	int num;
 
-	num = va_arg(a_list, long long int);
-	ft_prep_ll_int(conv, num);
-	if (conv->hassign && (conv->padzero || conv->leftj))
+	if (conv->sizemod == 1)
+		return (ft_ll_num(conv, a_list, in_len));
+	if (conv->sizemod == 2)
+		return (ft_l_num(conv, a_list, in_len));
+	num = va_arg(a_list, int);
+	ft_prep_int(conv, &num);
+	if (conv->hassign && (conv->leftj || conv->padzero))
 		ft_putchar_count_fd(conv->sign, 1, in_len);
 	if (conv->leftj)
 	{
 		ft_pad(conv->precision, conv->size, '0', in_len);
 		if (conv->precision)
-			ft_llint_c_fd(num, in_len);
+			ft_putint_count_fd(num, in_len);
 	}
 	if (!conv->leftj && conv->padzero)
 		ft_pad(conv->width, conv->precision + conv->hassign, '0', in_len);
@@ -37,41 +40,26 @@ void			ft_ll_num(t_conv *conv, va_list a_list, int *in_len)
 			ft_putchar_count_fd(conv->sign, 1, in_len);
 		ft_pad(conv->precision, conv->size, '0', in_len);
 		if (conv->precision)
-			ft_llint_c_fd(num, in_len);
+			ft_putint_count_fd(num, in_len);
 	}
 }
 
-void			ft_llint_c_fd(long long int num, int *in_len)
+void	ft_print_count(t_conv *conv, va_list a_list, int *in_len)
 {
-	long long int		res;
-	long long int		pow;
+	int	*count;
 
-	res = num;
-	pow = 1;
-	while (res / 10)
-	{
-		res /= 10;
-		pow *= 10;
-	}
-	while (pow)
-	{
-		if (num < 0)
-			ft_putchar_count_fd(('0' - num / pow), 1, in_len);
-		if (!(num < 0))
-			ft_putchar_count_fd(('0' + num / pow), 1, in_len);
-		num %= pow;
-		pow /= 10;
-	}
+	count = va_arg(a_list, int*);
+	*count = *in_len;
 }
 
-int	ft_ll_nbr_size(long long int num)
+int		ft_putint_size(int i)
 {
-	long long int		tmp;
-	int					size;
+	int		tmp;
+	int		size;
 
-	tmp = num;
+	tmp = i;
 	size = 0;
-	if (num == 0)
+	if (i == 0)
 		size++;
 	while (tmp)
 	{
@@ -81,17 +69,23 @@ int	ft_ll_nbr_size(long long int num)
 	return (size);
 }
 
-void			ft_prep_ll_int(t_conv *conv, long long int num)
+void	ft_putint_count_fd(int i, int *in_len)
 {
-	if (num < 0)
+	int		tmp;
+	int		pow;
+
+	tmp = i;
+	pow = 1;
+	while (tmp / 10)
 	{
-		conv->hassign = 1;
-		conv->sign = '-';
+		tmp = tmp / 10;
+		pow = pow * 10;
 	}
-	conv->size = ft_ll_nbr_size(num);
-	if (conv->precision != -2)
-		conv->padzero = 0;
-	if (conv->precision == -2 ||
-		(conv->precision < conv->size && conv->precision != 0))
-		conv->precision = conv->size;
+	while (pow)
+	{
+		ft_putchar_count_fd(((i < 0) ? '0' - i / pow :
+							'0' + i / pow), 1, in_len);
+		i = i % pow;
+		pow = pow / 10;
+	}
 }

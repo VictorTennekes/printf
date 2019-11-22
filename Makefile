@@ -6,16 +6,15 @@
 #    By: vtenneke <vtenneke@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/11 14:16:29 by vtenneke       #+#    #+#                 #
-#    Updated: 2019/11/21 12:46:01 by vtenneke      ########   odam.nl          #
+#    Updated: 2019/11/22 14:15:44 by vtenneke      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libftprintf.a
-SRCS		=	ft_printf ft_converters_cti ft_converters_u utilities/ft_chr_str\
-				utilities/ft_hex utilities/ft_int_dec_ll utilities/ft_int\
-				utilities/ft_un_int utilities/ft_hex_ll utilities/ft_general_utils\
-				ft_converters_fge
-LIBSRCS		=	ft_putchar_fd ft_putstr_fd
+SRCS		=	ft_char_string ft_conv_vars ft_hex_long ft_hex_longlong\
+				ft_int_long ft_int_longlong ft_misc ft_prep_hex ft_prep_int\
+				ft_print_hex ft_print_int ft_print_pointer ft_print_un ft_printf
+LIBSRCS		=	ft_putchar_fd ft_putstr_fd ft_isdigit ft_atoi ft_strlen
 CFILES		=	$(SRCS:%=srcs/%.c)
 LIBCFILES	=	$(LIBSRCS:%=libft/%.c)
 OFILES		=	$(CFILES:.c=.o)

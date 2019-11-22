@@ -1,25 +1,44 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_general_utils.c                                 :+:    :+:            */
+/*   ft_print_pointer.c                                 :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/19 13:47:52 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/21 13:00:08 by vtenneke      ########   odam.nl         */
+/*   Created: 2019/11/22 13:51:14 by vtenneke       #+#    #+#                */
+/*   Updated: 2019/11/22 13:52:00 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include <ft_printf.h>
 
-int				ft_valid_arg(t_conv *conv, const char **input)
+void			ft_print_pointer(t_conv *conv, va_list a_list, int *in_len)
 {
-	if (!*(*input + 1))
+	unsigned long ptr;
+
+	ptr = (unsigned long)va_arg(a_list, void*);
+	conv->size = (ft_ptr_size(ptr) + 2);
+	if (conv->precision == -2 ||
+		(conv->precision < conv->size && conv->precision != 0))
+		conv->precision = conv->size;
+	if (conv->leftj)
 	{
-		conv->type = 0;
-		return (1);
+		ft_putnstr_count_fd("0x", 1, 2, in_len);
+		ft_pad(conv->precision,
+			conv->size - ((conv->precision > conv->size) ? 2 : 0), '0', in_len);
+		if (conv->precision)
+			ft_ptr_res_fd(ptr, in_len);
 	}
-	return (0);
+	(!conv->leftj && conv->padzero) ? ft_pad(conv->width, conv->precision,
+		'0', in_len) : ft_pad(conv->width, conv->precision, ' ', in_len);
+	if (!(conv->leftj))
+	{
+		ft_putnstr_count_fd("0x", 1, 2, in_len);
+		ft_pad(conv->precision,
+			conv->size - ((conv->precision > conv->size) ? 2 : 0), '0', in_len);
+		if (conv->precision)
+			ft_ptr_res_fd(ptr, in_len);
+	}
 }
 
 unsigned long	ft_ptr_size(unsigned long ptr)

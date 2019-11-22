@@ -1,26 +1,47 @@
 /* ************************************************************************** */
 /*                                                                            */
 /*                                                        ::::::::            */
-/*   ft_un_int.c                                        :+:    :+:            */
+/*   ft_print_un.c                                      :+:    :+:            */
 /*                                                     +:+                    */
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
-/*   Created: 2019/11/18 14:19:53 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/21 13:01:51 by vtenneke      ########   odam.nl         */
+/*   Created: 2019/11/22 13:48:48 by vtenneke       #+#    #+#                */
+/*   Updated: 2019/11/22 13:49:28 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
-#include <libft.h>
 #include <ft_printf.h>
 
-void	ft_prep_un_int(t_conv *conv, unsigned int *i)
+void	ft_print_un_int(t_conv *conv, va_list a_list, int *in_len)
 {
-	conv->size = ft_putint_un_size(*i);
-	if (conv->precision != -2)
-		conv->padzero = 0;
-	if (conv->precision == -2 ||
-		(conv->precision < conv->size && *i != 0))
-		conv->precision = conv->size;
+	unsigned int num;
+
+	if (conv->sizemod == 1)
+		return (ft_ll_num(conv, a_list, in_len));
+	if (conv->sizemod == 2)
+		return (ft_l_num(conv, a_list, in_len));
+	num = va_arg(a_list, unsigned int);
+	ft_prep_un_int(conv, &num);
+	if (conv->hassign && (conv->leftj || conv->padzero))
+		ft_putchar_count_fd(conv->sign, 1, in_len);
+	if (conv->leftj)
+	{
+		ft_pad(conv->precision, conv->size, '0', in_len);
+		if (conv->precision)
+			ft_putint_un_count_fd(num, in_len);
+	}
+	if (!conv->leftj && conv->padzero)
+		ft_pad(conv->width, conv->precision + conv->hassign, '0', in_len);
+	else
+		ft_pad(conv->width, conv->precision + conv->hassign, ' ', in_len);
+	if (!conv->leftj)
+	{
+		if (conv->hassign && !conv->padzero)
+			ft_putchar_count_fd(conv->sign, 1, in_len);
+		ft_pad(conv->precision, conv->size, '0', in_len);
+		if (conv->precision)
+			ft_putint_un_count_fd(num, in_len);
+	}
 }
 
 int		ft_putint_un_size(unsigned int i)
@@ -60,4 +81,3 @@ void	ft_putint_un_count_fd(unsigned int i, int *in_len)
 		pow = pow / 10;
 	}
 }
-
