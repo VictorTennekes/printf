@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/22 13:37:41 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/25 09:45:40 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/25 16:13:53 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -17,7 +17,7 @@ void	ft_ll_num(t_conv *conv, va_list a_list, int *in_len)
 	long long int num;
 
 	num = va_arg(a_list, long long int);
-	ft_prep_ll_int(conv, num);
+	ft_prep_ll_int(conv, &num);
 	if (conv->hassign && (conv->padzero || conv->leftj))
 		ft_putchar_count_fd(conv->sign, 1, in_len);
 	if (conv->leftj)

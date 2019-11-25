@@ -6,7 +6,7 @@
 #    By: vtenneke <vtenneke@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/11 14:16:29 by vtenneke       #+#    #+#                 #
-#    Updated: 2019/11/25 13:58:00 by vtenneke      ########   odam.nl          #
+#    Updated: 2019/11/25 16:02:42 by vtenneke      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
@@ -14,7 +14,7 @@ NAME		=	libftprintf.a
 SRCS		=	ft_char_string.c ft_conv_vars.c ft_hex_long.c ft_hex_longlong.c\
 				ft_int_long.c ft_int_longlong.c ft_misc.c ft_prep_hex.c ft_prep_int.c\
 				ft_print_hex.c ft_print_int.c ft_print_pointer.c ft_print_un.c\
-				ft_printf.c ft_prep_size.c
+				ft_printf.c ft_prep_size.c ft_un_int_long.c ft_un_int_longlong.c
 LIBSRCS		=	ft_putchar_fd.c ft_putstr_fd.c ft_isdigit.c ft_atoi.c ft_strlen.c
 BSRCS		=	ft_char_string_bonus.c ft_conv_vars_bonus.c ft_hex_long_bonus.c\
 				ft_hex_longlong_bonus.c ft_int_long_bonus.c ft_int_longlong_bonus.c\

@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:15:40 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/25 10:28:20 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/25 16:00:59 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -98,8 +98,8 @@ void			ft_prephex_ll(t_conv *conv, unsigned long long *num);
 ** ft_prep_hex
 */
 void			ft_prep_int(t_conv *conv, int *i);
-void			ft_prep_l_int(t_conv *conv, long int num);
-void			ft_prep_ll_int(t_conv *conv, long long int num);
+void			ft_prep_l_int(t_conv *conv, long int *num);
+void			ft_prep_ll_int(t_conv *conv, long long int *num);
 void			ft_prep_un_int(t_conv *conv, unsigned int *i);
 
 /*
@@ -142,8 +142,24 @@ int				ft_putint_un_size(unsigned int i);
 void			ft_putint_un_count_fd(unsigned int i, int *in_len);
 
 /*
-** ft_print_un
+** ft_printf
 */
 int				ft_printf(const char *input, ...);
+
+/*
+** ft_un_int_long
+*/
+void			ft_print_un_int_l(t_conv *conv, va_list a_list, int *in_len);
+int				ft_putint_un_size_l(unsigned long int i);
+void			ft_putint_un_l_count(unsigned long int i, int *in_len);
+void			ft_prep_un_int_l(t_conv *conv, unsigned long int *i);
+
+/*
+** ft_un_int_longlong
+*/
+void			ft_print_un_int_ll(t_conv *conv, va_list a_list, int *in_len);
+int				ft_putint_un_size_ll(unsigned long long int i);
+void			ft_putint_un_ll_count(unsigned long long int i, int *in_len);
+void			ft_prep_un_int_ll(t_conv *conv, unsigned long long int *i);
 
 #endif

@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/25 09:48:30 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/25 10:06:11 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/25 15:55:20 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -25,9 +25,9 @@ void	ft_prep_size_int(t_conv *conv, va_list a_list, int *in_len)
 void	ft_prep_size_un_int(t_conv *conv, va_list a_list, int *in_len)
 {
 	if (conv->sizemod == 1)
-		return (ft_ll_num(conv, a_list, in_len));
+		return (ft_print_un_int_ll(conv, a_list, in_len));
 	else if (conv->sizemod == 2)
-		return (ft_l_num(conv, a_list, in_len));
+		return (ft_print_un_int_l(conv, a_list, in_len));
 	else
 		return (ft_print_un_int(conv, a_list, in_len));
 }
