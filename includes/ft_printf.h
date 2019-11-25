@@ -6,7 +6,7 @@
 /*   By: vtenneke <vtenneke@student.codam.nl>         +#+                     */
 /*                                                   +#+                      */
 /*   Created: 2019/11/11 14:15:40 by vtenneke       #+#    #+#                */
-/*   Updated: 2019/11/22 14:14:05 by vtenneke      ########   odam.nl         */
+/*   Updated: 2019/11/25 10:28:20 by vtenneke      ########   odam.nl         */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -26,7 +26,6 @@ typedef struct	s_conv
 	int			hassign;
 	int			sizemod;
 	int			size;
-	int			n_count;
 }				t_conv;
 
 typedef void	(*t_cfunc)(t_conv *, va_list, int *);
@@ -36,7 +35,7 @@ typedef void	(*t_cfunc)(t_conv *, va_list, int *);
 */
 void			ft_print_char(t_conv *conv, va_list a_list, int *in_len);
 void			ft_print_str(t_conv *conv, va_list a_list, int *in_len);
-void			ft_print_percent(t_conv *conv, va_list a_list, int *in_len);
+void			ft_print_percent(t_conv *conv, int *in_len);
 void			ft_putchar_count_fd(char c, int fd, int *in_len);
 void			ft_putnstr_count_fd(char *str, int fd, int n, int *in_len);
 
@@ -46,6 +45,7 @@ void			ft_putnstr_count_fd(char *str, int fd, int n, int *in_len);
 void			ft_init_conv_vars(t_conv *conv);
 void			ft_set_conv_vars(t_conv *conv, const char **input);
 void			ft_size_check(t_conv *conv, const char **input);
+void			ft_precision_check(t_conv *conv, const char **input);
 void			ft_set_flags(t_conv *conv, const char **input);
 
 /*
@@ -115,9 +115,17 @@ int				ft_puthex_size(unsigned int i);
 ** ft_print_int
 */
 void			ft_print_int(t_conv *conv, va_list a_list, int *in_len);
-void			ft_print_count(t_conv *conv, va_list a_list, int *in_len);
+void			ft_print_count(va_list a_list, int *in_len);
 int				ft_putint_size(int i);
 void			ft_putint_count_fd(int i, int *in_len);
+
+/*
+** ft_prep_size
+*/
+void			ft_prep_size_int(t_conv *conv, va_list a_list, int *in_len);
+void			ft_prep_size_un_int(t_conv *conv, va_list a_list, int *in_len);
+void			ft_size_lower_hex(t_conv *conv, va_list a_list, int *in_len);
+void			ft_size_upper_hex(t_conv *conv, va_list a_list, int *in_len);
 
 /*
 ** ft_print_pointer

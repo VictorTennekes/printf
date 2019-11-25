@@ -6,21 +6,29 @@
 #    By: vtenneke <vtenneke@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/11 14:16:29 by vtenneke       #+#    #+#                 #
-#    Updated: 2019/11/22 14:15:44 by vtenneke      ########   odam.nl          #
+#    Updated: 2019/11/25 13:58:00 by vtenneke      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libftprintf.a
-SRCS		=	ft_char_string ft_conv_vars ft_hex_long ft_hex_longlong\
-				ft_int_long ft_int_longlong ft_misc ft_prep_hex ft_prep_int\
-				ft_print_hex ft_print_int ft_print_pointer ft_print_un ft_printf
-LIBSRCS		=	ft_putchar_fd ft_putstr_fd ft_isdigit ft_atoi ft_strlen
-CFILES		=	$(SRCS:%=srcs/%.c)
-LIBCFILES	=	$(LIBSRCS:%=libft/%.c)
+SRCS		=	ft_char_string.c ft_conv_vars.c ft_hex_long.c ft_hex_longlong.c\
+				ft_int_long.c ft_int_longlong.c ft_misc.c ft_prep_hex.c ft_prep_int.c\
+				ft_print_hex.c ft_print_int.c ft_print_pointer.c ft_print_un.c\
+				ft_printf.c ft_prep_size.c
+LIBSRCS		=	ft_putchar_fd.c ft_putstr_fd.c ft_isdigit.c ft_atoi.c ft_strlen.c
+BSRCS		=	ft_char_string_bonus.c ft_conv_vars_bonus.c ft_hex_long_bonus.c\
+				ft_hex_longlong_bonus.c ft_int_long_bonus.c ft_int_longlong_bonus.c\
+				ft_misc_bonus.c ft_prep_hex_bonus.c ft_prep_int_bonus.c\
+				ft_print_hex_bonus.c ft_print_int_bonus.c ft_print_pointer_bonus.c\
+				ft_print_un_bonus.c ft_printf_bonus.c ft_prep_size_bonus.c
+CFILES		=	$(SRCS:%=srcs/%)
+LIBCFILES	=	$(LIBSRCS:%=libft/%)
+BCFILES		=	$(BSRCS:%=./bonus/%)
 OFILES		=	$(CFILES:.c=.o)
 LIBOFILES	=	$(LIBCFILES:.c=.o)
+BOFILES		=	$(BCFILES:.c=.o)
 INCLUDES	=	./includes
-FLAGS		=	-Wall -Werror -Wextra -Wno-unused-parameter
+FLAGS		=	-Wall -Werror -Wextra
 
 # COLORS
 WHITE	= \x1b[37;01m
@@ -35,9 +43,9 @@ RESET	= \x1b[0m
 
 all: $(NAME)
 
-$(NAME): $(OFILES)
+$(NAME): $(OFILES) $(LIBOFILES)
 	@echo "$(YELLOW)Linking the library..."
-	@ar rc $(NAME) $(OFILES)
+	@ar rc $(NAME) $(OFILES) $(LIBOFILES)
 	@ranlib $(NAME)
 	@echo "$(GREEN)Done!"
 
@@ -57,11 +65,12 @@ fclean: clean_b
 clean_b:
 	@rm -f $(LIBOFILES)
 	@rm -f $(OFILES)
+	@rm -f $(BOFILES)
 
 re: fclean all
 
-bonus: $(OFILES) $(LIBOFILES)
+bonus: $(BOFILES) $(LIBOFILES)
 	@echo "$(YELLOW)Linking the bonusses into the library..."
-	@ar rc $(NAME) $(OFILES) $(LIBOFILES)
+	@ar rc $(NAME) $(BOFILES) $(LIBOFILES)
 	@ranlib $(NAME)
 	@echo "$(GREEN)Done!"
