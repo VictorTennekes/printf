@@ -6,27 +6,22 @@
 #    By: vtenneke <vtenneke@student.codam.nl>         +#+                      #
 #                                                    +#+                       #
 #    Created: 2019/11/11 14:16:29 by vtenneke       #+#    #+#                 #
-#    Updated: 2019/11/25 16:02:42 by vtenneke      ########   odam.nl          #
+#    Updated: 2019/11/26 10:54:53 by vtenneke      ########   odam.nl          #
 #                                                                              #
 # **************************************************************************** #
 
 NAME		=	libftprintf.a
-SRCS		=	ft_char_string.c ft_conv_vars.c ft_hex_long.c ft_hex_longlong.c\
-				ft_int_long.c ft_int_longlong.c ft_misc.c ft_prep_hex.c ft_prep_int.c\
-				ft_print_hex.c ft_print_int.c ft_print_pointer.c ft_print_un.c\
-				ft_printf.c ft_prep_size.c ft_un_int_long.c ft_un_int_longlong.c
-LIBSRCS		=	ft_putchar_fd.c ft_putstr_fd.c ft_isdigit.c ft_atoi.c ft_strlen.c
-BSRCS		=	ft_char_string_bonus.c ft_conv_vars_bonus.c ft_hex_long_bonus.c\
-				ft_hex_longlong_bonus.c ft_int_long_bonus.c ft_int_longlong_bonus.c\
-				ft_misc_bonus.c ft_prep_hex_bonus.c ft_prep_int_bonus.c\
-				ft_print_hex_bonus.c ft_print_int_bonus.c ft_print_pointer_bonus.c\
-				ft_print_un_bonus.c ft_printf_bonus.c ft_prep_size_bonus.c
+SRCS		=	ft_char_string.c ft_conv_vars.c ft_hex_long.c\
+				ft_hex_longlong.c ft_int_long.c ft_int_longlong.c ft_misc.c\
+				ft_prep_hex.c ft_prep_int.c ft_print_hex.c ft_print_int.c\
+				ft_print_pointer.c ft_print_un.c ft_printf.c ft_prep_size.c\
+				ft_un_int_long.c ft_un_int_longlong.c
+LIBSRCS		=	ft_putchar_fd.c ft_putstr_fd.c ft_isdigit.c ft_atoi.c\
+				ft_strlen.c
 CFILES		=	$(SRCS:%=srcs/%)
 LIBCFILES	=	$(LIBSRCS:%=libft/%)
-BCFILES		=	$(BSRCS:%=./bonus/%)
 OFILES		=	$(CFILES:.c=.o)
 LIBOFILES	=	$(LIBCFILES:.c=.o)
-BOFILES		=	$(BCFILES:.c=.o)
 INCLUDES	=	./includes
 FLAGS		=	-Wall -Werror -Wextra
 
@@ -69,8 +64,4 @@ clean_b:
 
 re: fclean all
 
-bonus: $(BOFILES) $(LIBOFILES)
-	@echo "$(YELLOW)Linking the bonusses into the library..."
-	@ar rc $(NAME) $(BOFILES) $(LIBOFILES)
-	@ranlib $(NAME)
-	@echo "$(GREEN)Done!"
+bonus: all
